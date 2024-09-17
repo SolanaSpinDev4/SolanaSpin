@@ -25,8 +25,6 @@ public static class FshResource
     public const string UserRoles = nameof(UserRoles);
     public const string Roles = nameof(Roles);
     public const string RoleClaims = nameof(RoleClaims);
-    public const string Products = nameof(Products);
-    public const string Todos = nameof(Todos);
     public const string Dice = nameof(Dice);
 }
 
@@ -56,28 +54,17 @@ public static class FshPermissions
         new("View RoleClaims", FshAction.View, FshResource.RoleClaims),
         new("Update RoleClaims", FshAction.Update, FshResource.RoleClaims),
 
-        //products
-        new("View Products", FshAction.View, FshResource.Products, IsBasic: true),
-        new("Search Products", FshAction.Search, FshResource.Products, IsBasic: true),
-        new("Create Products", FshAction.Create, FshResource.Products),
-        new("Update Products", FshAction.Update, FshResource.Products),
-        new("Delete Products", FshAction.Delete, FshResource.Products),
-        new("Export Products", FshAction.Export, FshResource.Products),
-
-        //todos
-        new("View Todos", FshAction.View, FshResource.Todos, IsBasic: true),
-        new("Search Todos", FshAction.Search, FshResource.Todos, IsBasic: true),
-        new("Create Todos", FshAction.Create, FshResource.Todos),
-        new("Update Todos", FshAction.Update, FshResource.Todos),
-        new("Delete Todos", FshAction.Delete, FshResource.Todos),
-
         //dice
         new("View Dice", FshAction.View, FshResource.Dice, IsBasic: true),
         new("Search Dice", FshAction.Search, FshResource.Dice, IsBasic: true),
         new("Create Dice", FshAction.Create, FshResource.Dice),
         new("Update Dice", FshAction.Update, FshResource.Dice),
         new("Delete Dice", FshAction.Delete, FshResource.Dice),
+        new("Export Dice", FshAction.Export, FshResource.Dice),
         new("Play Dice", FshAction.Play, FshResource.Dice, IsBasic: true),
+
+        new("View Hangfire", FshAction.View, FshResource.Hangfire),
+        new("View Dashboard", FshAction.View, FshResource.Dashboard),
    };
 
     public static IReadOnlyList<FshPermission> All { get; } = new ReadOnlyCollection<FshPermission>(allPermissions);

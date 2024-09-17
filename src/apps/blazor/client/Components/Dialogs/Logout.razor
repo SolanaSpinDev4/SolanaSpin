@@ -28,7 +28,7 @@
 
     [CascadingParameter] MudDialogInstance MudDialog { get; set; } = default!;
 
-    async Task Submit()
+    void Submit()
     {
         Navigation.NavigateTo("/logout");
         MudDialog.Close(DialogResult.Ok(true));

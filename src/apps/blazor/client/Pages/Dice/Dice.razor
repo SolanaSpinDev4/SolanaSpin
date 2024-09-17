@@ -1,8 +1,8 @@
-﻿@page "/todos"
+﻿@page "/dice"
 
-<PageHeader Title="Todos" Header="Todos" SubHeader="Manage your Todos." />
+<PageHeader Title="Dice" Header="Dice" SubHeader="Manage your Dice." />
 
-<EntityTable @ref="_table" TEntity="GetTodoResponse" TId="Guid" TRequest="TodoViewModel" Context="@Context">
+<EntityTable @ref="_table" TEntity="DiceDto" TId="Guid" TRequest="UpdateDiceCommand" Context="@Context">
     <EditFormContent>
         @if (!Context.AddEditModal.IsCreate)
         {
@@ -14,7 +14,7 @@
             <MudTextField Label="Name" For="@(() => context.Title)" @bind-Value="context.Title" />
         </MudItem>
         <MudItem xs="12" md="6">
-            <MudTextField Label="Note" For="@(() => context.Note)" @bind-Value="context.Note" />
+            <MudTextField Label="Slug" For="@(() => context.Slug)" @bind-Value="context.Slug" />
         </MudItem>
         <MudItem xs="12" md="12">
             <MudItem>

@@ -5,8 +5,6 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\framework\Infrastructure\Infrastructure.csproj" />
-    <ProjectReference Include="..\..\modules\Catalog\Catalog.Infrastructure\Catalog.Infrastructure.csproj" />
-    <ProjectReference Include="..\..\modules\Todo\Todo.csproj" />
     <ProjectReference Include="..\..\modules\Playground\Playground.csproj" />
   </ItemGroup>
 </Project>

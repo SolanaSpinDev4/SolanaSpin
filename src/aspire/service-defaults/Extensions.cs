@@ -82,8 +82,7 @@ public static class Extensions
                        .AddHttpClientInstrumentation()
                        .AddRuntimeInstrumentation()
                        .AddProcessInstrumentation()
-                       .AddMeter(MetricsConstants.Todos)
-                       .AddMeter(MetricsConstants.Catalog);
+                       .AddMeter(MetricsConstants.Playground);
                 //.AddConsoleExporter();
             })
             .WithTracing(tracing =>
@@ -143,7 +142,7 @@ public static class Extensions
                 if (context.Request.Path != "/metrics") return false;
                 return true;
             });
-        
+
         // All health checks must pass for app to be considered ready to accept traffic after starting
         app.MapHealthChecks("/health").AllowAnonymous();
         // Only health checks tagged with the "live" tag must pass for app to be considered alive
