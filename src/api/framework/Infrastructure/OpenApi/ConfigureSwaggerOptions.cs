@@ -29,12 +29,12 @@ public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
 
     private static OpenApiInfo CreateInfoForApiVersion(ApiVersionDescription description)
     {
-        var text = new StringBuilder(".NET 8 Starter Kit with Vertical Slice Architecture!");
+        var text = new StringBuilder("SolanaSpin (based on .NET 8 Starter Kit with Vertical Slice Architecture)!");
         var info = new OpenApiInfo()
         {
             Title = "SolanaSpin.WebApi",
             Version = description.ApiVersion.ToString(),
-            Contact = new OpenApiContact() { Name = "Mukesh Murugan", Email = "hello@codewithmukesh.com" }
+            Contact = new OpenApiContact() { Name = "SolanaSpin Dev", Email = "solanaspindev@protonmail.com" }
         };
 
         if (description.IsDeprecated)

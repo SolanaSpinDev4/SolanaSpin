@@ -130,7 +130,7 @@ public static class SpecificationBuilderExtensions
 
             if (!string.IsNullOrEmpty(filter.Logic))
             {
-                if (filter.Filters is null) throw new CustomException("The Filters attribute is required when declaring a logic");
+                if (filter.Filters is null) throw new BadRequestException("The Filters attribute is required when declaring a logic");
                 binaryExpresioFilter = CreateFilterExpression(filter.Logic, filter.Filters, parameter);
             }
             else
@@ -159,7 +159,7 @@ public static class SpecificationBuilderExtensions
 
             if (!string.IsNullOrEmpty(filter.Logic))
             {
-                if (filter.Filters is null) throw new CustomException("The Filters attribute is required when declaring a logic");
+                if (filter.Filters is null) throw new BadRequestException("The Filters attribute is required when declaring a logic");
                 bExpresionFilter = CreateFilterExpression(filter.Logic, filter.Filters, parameter);
             }
             else
@@ -207,7 +207,7 @@ public static class SpecificationBuilderExtensions
             FilterOperator.CONTAINS => Expression.Call(memberExpression, "Contains", null, constantExpression),
             FilterOperator.STARTSWITH => Expression.Call(memberExpression, "StartsWith", null, constantExpression),
             FilterOperator.ENDSWITH => Expression.Call(memberExpression, "EndsWith", null, constantExpression),
-            _ => throw new CustomException("Filter Operator is not valid."),
+            _ => throw new BadRequestException("Filter Operator is not valid."),
         };
     }
 
@@ -249,7 +249,7 @@ public static class SpecificationBuilderExtensions
         {
             string? stringEnum = GetStringFromJsonElement(value);
 
-            if (!Enum.TryParse(propertyType, stringEnum, true, out object? valueparsed)) throw new CustomException(string.Format("Value {0} is not valid for {1}", value, field));
+            if (!Enum.TryParse(propertyType, stringEnum, true, out object? valueparsed)) throw new BadRequestException(string.Format("Value {0} is not valid for {1}", value, field));
 
             return Expression.Constant(valueparsed, propertyType);
         }
@@ -258,7 +258,7 @@ public static class SpecificationBuilderExtensions
         {
             string? stringGuid = GetStringFromJsonElement(value);
 
-            if (!Guid.TryParse(stringGuid, out Guid valueparsed)) throw new CustomException(string.Format("Value {0} is not valid for {1}", value, field));
+            if (!Guid.TryParse(stringGuid, out Guid valueparsed)) throw new BadRequestException(string.Format("Value {0} is not valid for {1}", value, field));
 
             return Expression.Constant(valueparsed, propertyType);
         }
@@ -298,8 +298,8 @@ public static class SpecificationBuilderExtensions
 
     private static Filter GetValidFilter(Filter filter)
     {
-        if (string.IsNullOrEmpty(filter.Field)) throw new CustomException("The field attribute is required when declaring a filter");
-        if (string.IsNullOrEmpty(filter.Operator)) throw new CustomException("The Operator attribute is required when declaring a filter");
+        if (string.IsNullOrEmpty(filter.Field)) throw new BadRequestException("The field attribute is required when declaring a filter");
+        if (string.IsNullOrEmpty(filter.Operator)) throw new BadRequestException("The Operator attribute is required when declaring a filter");
         return filter;
     }
 
