@@ -5,6 +5,7 @@ using FluentValidation;
 using SolanaSpin.WebApi.Catalog.Application;
 using SolanaSpin.WebApi.Catalog.Infrastructure;
 using SolanaSpin.WebApi.Todo;
+using SolanaSpin.WebApi.Playground;
 
 namespace SolanaSpin.WebApi.Host;
 
@@ -18,7 +19,8 @@ public static class Extensions
         var assemblies = new Assembly[]
         {
             typeof(CatalogMetadata).Assembly,
-            typeof(TodoModule).Assembly
+            typeof(TodoModule).Assembly,
+            typeof(PlaygroundModule).Assembly,
         };
 
         //register validators
@@ -33,12 +35,14 @@ public static class Extensions
         //register module services
         builder.RegisterCatalogServices();
         builder.RegisterTodoServices();
+        builder.RegisterPlaygroundServices();
 
         //add carter endpoint modules
         builder.Services.AddCarter(configurator: config =>
         {
             config.WithModule<CatalogModule.Endpoints>();
             config.WithModule<TodoModule.Endpoints>();
+            config.WithModule<PlaygroundModule.Endpoints>();
         });
 
         return builder;
@@ -51,6 +55,7 @@ public static class Extensions
         //register modules
         app.UseCatalogModule();
         app.UseTodoModule();
+        app.UsePlaygroundModule();
 
         //register api versions
         var versions = app.NewApiVersionSet()
