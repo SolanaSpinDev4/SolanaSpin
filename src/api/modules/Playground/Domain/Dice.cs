@@ -10,7 +10,7 @@ public enum FaceResultType
     Empty = 0,
     Multiplier,
     FixedAmount,
-    Invitation
+    NewDicePlay
 }
 public class Face
 {

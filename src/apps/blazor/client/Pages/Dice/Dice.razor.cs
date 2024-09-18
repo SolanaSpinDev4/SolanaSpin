@@ -15,36 +15,36 @@ public partial class Dice
 
     private EntityTable<DiceDto, Guid, UpdateDiceCommand> _table = default!;
 
-    protected override void OnInitialized() =>
+    protected override void OnInitialized()
+    {
         Context = new(
             entityName: "Dice",
             entityNamePlural: "Dice",
             entityResource: FshResources.Dice,
-            fields: new()
-            {
-                new(prod => prod.Id, "Id", "Id"),
-                new(prod => prod.Title, "Title", "Title"),
-                new(prod => prod.Slug, "Slug", "Slug"),
-                new(prod => prod.IsPubliclyPlayable, "Is Publicly Playable", "Is Publicly Playable"),
-                new(prod => prod.MinimumPlayAmount, "Minimum Play Amount", "Minimum Play Amount"),
-                new(prod => prod.MaximumPlayAmount, "Maximum Play Amount", "Maximum Play Amount"),
-            },
+            fields: [
+                new(item => item.Id, "Dice Id", "Id"),
+                new(item => item.Title, "Title", "Title"),
+                new(item => item.Slug, "Slug", "Slug"),
+                new(item => item.IsPubliclyPlayable, "Is Publicly Playable", "IsPubliclyPlayable"),
+                new(item => item.MinimumPlayAmount, "Minimum Play Amount", "MinimumPlayAmount"),
+                new(item => item.MaximumPlayAmount, "Maximum Play Amount", "MaximumPlayAmount"),
+            ],
             enableAdvancedSearch: false,
-            idFunc: prod => prod.Id,
+            idFunc: item => item.Id,
             searchFunc: async filter =>
             {
                 var diceFilter = filter.Adapt<PaginationFilter>();
-
                 var result = await ApiClient.GetDiceListEndpointAsync("1", diceFilter);
                 return result.Adapt<PaginationResponse<DiceDto>>();
             },
-            createFunc: async item =>
+            editFormInitializedFunc: item =>
             {
-                await ApiClient.CreateDiceEndpointAsync("1", item.Adapt<CreateDiceCommand>());
+                item.IsPubliclyPlayable ??= false;
+                item.Faces ??= [];
+                return Task.CompletedTask;
             },
-            updateFunc: async (id, item) =>
-            {
-                await ApiClient.UpdateDiceEndpointAsync("1", id, item.Adapt<UpdateDiceCommand>());
-            },
+            createFunc: async item => await ApiClient.CreateDiceEndpointAsync("1", item.Adapt<CreateDiceCommand>()),
+            updateFunc: async (id, item) => await ApiClient.UpdateDiceEndpointAsync("1", id, item.Adapt<UpdateDiceCommand>()),
             deleteFunc: async id => await ApiClient.DeleteDiceEndpointAsync("1", id));
+    }
 }

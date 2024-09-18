@@ -1,0 +1,38 @@
+﻿<MudDataGrid T="Face" Items="@Faces" ReadOnly="false" EditMode="DataGridEditMode.Cell" SortMode="SortMode.None">
+    <Columns>
+        <PropertyColumn Property="@(x => $"#{Faces.ToList().IndexOf(x) + 1}")" Title="Face Index" Editable="false" />
+        <PropertyColumn Property="x => x.ResultType" Title="Result Type">
+            <CellTemplate>
+                @switch (context.Item.ResultType)
+                {
+                    case FaceResultType._0: <MudText>Empty</MudText> break;
+                    case FaceResultType._1: <MudText>Multiplier</MudText> break;
+                    case FaceResultType._2: <MudText>FixedAmount</MudText> break;
+                    case FaceResultType._3: <MudText>New Dice Play</MudText> break;
+                }
+            </CellTemplate>
+            <EditTemplate>
+                <MudSelect For="@(() => context.Item.ResultType)" @bind-Value="context.Item.ResultType" Required RequiredError="You must select type" Margin="@Margin.Dense">
+                    <MudSelectItem Value="FaceResultType._0">Empty</MudSelectItem>
+                    <MudSelectItem Value="FaceResultType._1">Multiplier</MudSelectItem>
+                    <MudSelectItem Value="FaceResultType._2">Fixed Amount</MudSelectItem>
+                    <MudSelectItem Value="FaceResultType._3">New Dice Play</MudSelectItem>
+                </MudSelect>
+            </EditTemplate>
+        </PropertyColumn>
+        <PropertyColumn Property="x => x.ResultValue" Title="Result Type" Required="false" />
+        <PropertyColumn Property="x => x.Weight" Title="Weight" />
+        <TemplateColumn CellClass="mud-typography-align-right" Editable="false">
+            <CellTemplate>
+                <MudIconButton Icon="@Icons.Material.Outlined.Delete" OnClick="e => Faces.Remove(context.Item)" />
+            </CellTemplate>
+        </TemplateColumn>
+    </Columns>
+</MudDataGrid>
+<MudIconButton Icon="@Icons.Material.Outlined.Add" OnClick="e => Faces.Add(new())" Class="mt-2" />
+
+@code {
+    [Parameter]
+    [EditorRequired]
+    public ICollection<Face> Faces { get; set; } = [];
+}

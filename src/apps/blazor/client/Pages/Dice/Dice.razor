@@ -6,34 +6,31 @@
     <EditFormContent>
         @if (!Context.AddEditModal.IsCreate)
         {
-            <MudItem xs="12" md="6">
-                <MudTextField Value="context.Id" Underline=false ReadOnly Label="Product Id" />
+            <MudItem xs="12" md="12">
+                <MudTextField Value="context.Id" Underline=false ReadOnly Label="Dice Id" />
             </MudItem>
         }
         <MudItem xs="12" md="6">
-            <MudTextField Label="Name" For="@(() => context.Title)" @bind-Value="context.Title" />
+            <MudTextField Label="Title" For="@(() => context.Title)" @bind-Value="context.Title" />
         </MudItem>
         <MudItem xs="12" md="6">
             <MudTextField Label="Slug" For="@(() => context.Slug)" @bind-Value="context.Slug" />
         </MudItem>
-        <MudItem xs="12" md="12">
-            <MudItem>
-                <div>
-                    @if(!Context.AddEditModal.IsCreate)
-                    {
-                        <MudButton HtmlTag="label" Variant="Variant.Filled" Color="Color.Info" Size="Size.Small" Target="_blank"
-                            StartIcon="@Icons.Material.Filled.RemoveRedEye" Style="margin-left: 5px;" >
-                            View
-                        </MudButton>
-
-                        <MudButton HtmlTag="label" Variant="Variant.Filled" Color="Color.Error" Size="Size.Small"
-                                   StartIcon="@Icons.Material.Filled.Delete" Style="margin-left: 5px;">
-                            Delete
-                        </MudButton>
-                    }
-                </div>
-            </MudItem>
+        <MudItem xs="12" md="6">
+            <MudCheckBox Label="Public" For="@(() => context.IsPubliclyPlayable)" @bind-Value="context.IsPubliclyPlayable" />
         </MudItem>
+         <MudItem xs="6" md="3">
+            <MudNumericField Label="Min Amount" For="@(() => context.MinimumPlayAmount)" @bind-Value="context.MinimumPlayAmount" />
+        </MudItem>
+        <MudItem xs="6" md="3">
+            <MudNumericField Label="Max Amount" For="@(() => context.MaximumPlayAmount)" @bind-Value="context.MaximumPlayAmount" />
+        </MudItem>
+        @if (context.Faces is not null)
+        {
+            <MudItem xs="12" md="12">
+                <FacesDataGrid Faces="context.Faces" />
+            </MudItem>
+        }
     </EditFormContent>
 
 </EntityTable>

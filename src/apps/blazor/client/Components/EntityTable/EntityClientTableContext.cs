@@ -36,7 +36,7 @@ public class EntityClientTableContext<TEntity, TId, TRequest>
         string? updateAction = null,
         string? deleteAction = null,
         string? exportAction = null,
-        Func<Task>? editFormInitializedFunc = null,
+        Func<TRequest, Task>? editFormInitializedFunc = null,
         Func<bool>? hasExtraActionsFunc = null,
         Func<TEntity, bool>? canUpdateEntityFunc = null,
         Func<TEntity, bool>? canDeleteEntityFunc = null)

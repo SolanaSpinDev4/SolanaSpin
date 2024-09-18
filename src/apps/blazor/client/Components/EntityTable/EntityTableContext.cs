@@ -109,7 +109,7 @@ public abstract class EntityTableContext<TEntity, TId, TRequest>
     /// <summary>
     /// Use this if you want to run initialization during OnInitialized of the AddEdit form.
     /// </summary>
-    public Func<Task>? EditFormInitializedFunc { get; }
+    public Func<TRequest, Task>? EditFormInitializedFunc { get; }
 
     /// <summary>
     /// Use this if you want to check for permissions of content in the ExtraActions RenderFragment.
@@ -143,7 +143,7 @@ public abstract class EntityTableContext<TEntity, TId, TRequest>
         string? updateAction,
         string? deleteAction,
         string? exportAction,
-        Func<Task>? editFormInitializedFunc,
+        Func<TRequest, Task>? editFormInitializedFunc,
         Func<bool>? hasExtraActionsFunc,
         Func<TEntity, bool>? canUpdateEntityFunc,
         Func<TEntity, bool>? canDeleteEntityFunc)

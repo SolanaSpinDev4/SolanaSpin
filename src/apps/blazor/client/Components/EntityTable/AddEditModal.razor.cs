@@ -15,7 +15,7 @@ public partial class AddEditModal<TRequest> : IAddEditModal<TRequest>
     [EditorRequired]
     public Func<TRequest, Task> SaveFunc { get; set; } = default!;
     [Parameter]
-    public Func<Task>? OnInitializedFunc { get; set; }
+    public Func<TRequest, Task>? OnInitializedFunc { get; set; }
     [Parameter]
     [EditorRequired]
     public string Title { get; set; } = default!;
@@ -33,7 +33,7 @@ public partial class AddEditModal<TRequest> : IAddEditModal<TRequest>
 
     protected override Task OnInitializedAsync() =>
         OnInitializedFunc is not null
-            ? OnInitializedFunc()
+            ? OnInitializedFunc(RequestModel)
             : Task.CompletedTask;
 
     private async Task SaveAsync()
