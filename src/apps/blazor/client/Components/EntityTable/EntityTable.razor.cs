@@ -240,7 +240,7 @@ public partial class EntityTable<TEntity, TId, TRequest>
                 : entity!.Adapt<TRequest>();
 
             title = $"Edit {Context.EntityName}";
-            successMessage = $"{Context.EntityName}Updated";
+            successMessage = $"{Context.EntityName} Updated";
         }
 
         parameters.Add(nameof(AddEditModal<TRequest>.SaveFunc), saveFunc);
@@ -279,7 +279,7 @@ public partial class EntityTable<TEntity, TId, TRequest>
 
             await ApiHelper.ExecuteCallGuardedAsync(
                 () => Context.DeleteFunc(id),
-                Toast);
+                Toast, null, $"{Context.EntityName} Deleted");
 
             await ReloadDataAsync();
         }
