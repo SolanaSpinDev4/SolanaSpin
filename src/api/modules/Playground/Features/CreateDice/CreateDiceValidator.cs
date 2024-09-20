@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using SolanaSpin.WebApi.Playground.Persistence;
 
-namespace SolanaSpin.WebApi.Playground.Features.Create.v1;
+namespace SolanaSpin.WebApi.Playground.Features.CreateDice;
 public class CreateDiceValidator : AbstractValidator<CreateDiceCommand>
 {
     public CreateDiceValidator(PlaygroundDbContext context)

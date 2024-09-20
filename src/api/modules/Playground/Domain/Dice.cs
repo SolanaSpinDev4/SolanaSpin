@@ -1,8 +1,8 @@
 ﻿using FSH.Framework.Core.Domain;
 using FSH.Framework.Core.Domain.Contracts;
 using SolanaSpin.WebApi.Playground.Domain.Events;
-using SolanaSpin.WebApi.Playground.Features.Create.v1;
-using SolanaSpin.WebApi.Playground.Features.Update.v1;
+using SolanaSpin.WebApi.Playground.Features.CreateDice;
+using SolanaSpin.WebApi.Playground.Features.UpdateDice;
 
 namespace SolanaSpin.WebApi.Playground.Domain;
 public enum FaceResultType

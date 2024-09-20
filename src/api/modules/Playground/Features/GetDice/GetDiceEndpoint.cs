@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using SolanaSpin.WebApi.Playground.Domain;
 
-namespace SolanaSpin.WebApi.Playground.Features.Get.v1;
+namespace SolanaSpin.WebApi.Playground.Features.GetDice;
 public static class GetDiceEndpoint
 {
     internal static RouteHandlerBuilder MapGetDiceEndpoint(this IEndpointRouteBuilder endpoints)

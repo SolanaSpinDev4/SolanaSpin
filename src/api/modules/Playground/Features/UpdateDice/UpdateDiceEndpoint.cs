@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using SolanaSpin.WebApi.Playground.Domain;
 
-namespace SolanaSpin.WebApi.Playground.Features.Update.v1;
+namespace SolanaSpin.WebApi.Playground.Features.UpdateDice;
 public static class UpdateDiceEndpoint
 {
     internal static RouteHandlerBuilder MapUpdateDiceEndpoint(this IEndpointRouteBuilder endpoints)

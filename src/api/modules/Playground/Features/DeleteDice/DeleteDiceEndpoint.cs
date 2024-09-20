@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 
-namespace SolanaSpin.WebApi.Playground.Features.Delete.v1;
+namespace SolanaSpin.WebApi.Playground.Features.DeleteDice;
 public static class DeleteDiceEndpoint
 {
     internal static RouteHandlerBuilder MapDeleteDiceEndpoint(this IEndpointRouteBuilder endpoints)

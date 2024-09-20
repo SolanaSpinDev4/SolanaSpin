@@ -5,7 +5,7 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
-namespace SolanaSpin.WebApi.Playground.Features.Delete.v1;
+namespace SolanaSpin.WebApi.Playground.Features.DeleteDice;
 public sealed class DeleteDiceHandler(
     ILogger<DeleteDiceHandler> logger,
     [FromKeyedServices("playground:dice")] IRepository<Dice> repository)

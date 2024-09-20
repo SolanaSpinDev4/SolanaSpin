@@ -7,7 +7,7 @@ using SolanaSpin.WebApi.Playground.Exceptions;
 using SolanaSpin.WebApi.Playground.Domain.Specifications;
 using Mapster;
 
-namespace SolanaSpin.WebApi.Playground.Features.Play.v1;
+namespace SolanaSpin.WebApi.Playground.Features.PlayDice;
 public sealed class PlayDiceHandler(
     ILogger<PlayDiceHandler> logger,
     [FromKeyedServices("playground:dice")] IRepository<Dice> repository)
@@ -29,7 +29,7 @@ public sealed class PlayDiceHandler(
         var returnAmount = request.PlayAmount;
 
         logger.LogInformation("dice {Id} played", item.Id);
-        return new PlayDiceResponse(request, new PlayDiceResult(item.Adapt<DiceDto>(), faceIndex, returnAmount));
+        return new(request, new(item.Adapt<DiceDto>(), faceIndex, returnAmount));
     }
 }
 

@@ -2,6 +2,6 @@
 using MediatR;
 using SolanaSpin.WebApi.Playground.Domain;
 
-namespace SolanaSpin.WebApi.Playground.Features.GetList.v1;
+namespace SolanaSpin.WebApi.Playground.Features.GetDiceList;
 public record GetDiceListRequest(
     PaginationFilter Filter) : IRequest<PagedList<DiceDto>>;

@@ -6,7 +6,7 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Mapster;
 
-namespace SolanaSpin.WebApi.Playground.Features.Get.v1;
+namespace SolanaSpin.WebApi.Playground.Features.GetDice;
 public sealed class GetDiceHandler(
     [FromKeyedServices("playground:dice")] IReadRepository<Dice> repository,
     ICacheService cache)

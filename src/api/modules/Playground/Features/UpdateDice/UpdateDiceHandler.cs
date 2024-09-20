@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Mapster;
 
-namespace SolanaSpin.WebApi.Playground.Features.Update.v1;
+namespace SolanaSpin.WebApi.Playground.Features.UpdateDice;
 public sealed class UpdateDiceHandler(
     ILogger<UpdateDiceHandler> logger,
     [FromKeyedServices("playground:dice")] IRepository<Dice> repository)

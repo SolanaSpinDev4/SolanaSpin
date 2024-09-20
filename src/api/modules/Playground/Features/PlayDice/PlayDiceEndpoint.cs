@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 
-namespace SolanaSpin.WebApi.Playground.Features.Play.v1;
+namespace SolanaSpin.WebApi.Playground.Features.PlayDice;
 public static class PlayDiceEndpoint
 {
     internal static RouteHandlerBuilder MapPlayDiceEndpoint(this IEndpointRouteBuilder endpoints)

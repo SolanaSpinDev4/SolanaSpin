@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using MediatR;
 using SolanaSpin.WebApi.Playground.Domain;
 
-namespace SolanaSpin.WebApi.Playground.Features.Update.v1;
+namespace SolanaSpin.WebApi.Playground.Features.UpdateDice;
 public sealed record UpdateDiceCommand(
     [property: Required] Guid Id,
     [property: DefaultValue(null)] string? Title,

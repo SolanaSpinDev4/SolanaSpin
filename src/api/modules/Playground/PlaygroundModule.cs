@@ -6,12 +6,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using SolanaSpin.WebApi.Playground.Domain;
-using SolanaSpin.WebApi.Playground.Features.Create.v1;
-using SolanaSpin.WebApi.Playground.Features.Delete.v1;
-using SolanaSpin.WebApi.Playground.Features.Get.v1;
-using SolanaSpin.WebApi.Playground.Features.GetList.v1;
-using SolanaSpin.WebApi.Playground.Features.Play.v1;
-using SolanaSpin.WebApi.Playground.Features.Update.v1;
+using SolanaSpin.WebApi.Playground.Features.CreateDice;
+using SolanaSpin.WebApi.Playground.Features.DeleteDice;
+using SolanaSpin.WebApi.Playground.Features.GetDice;
+using SolanaSpin.WebApi.Playground.Features.GetDiceList;
+using SolanaSpin.WebApi.Playground.Features.PlayDice;
+using SolanaSpin.WebApi.Playground.Features.UpdateDice;
 using SolanaSpin.WebApi.Playground.Persistence;
 
 namespace SolanaSpin.WebApi.Playground;

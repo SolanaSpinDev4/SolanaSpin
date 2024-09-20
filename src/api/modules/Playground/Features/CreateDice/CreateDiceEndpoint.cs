@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using SolanaSpin.WebApi.Playground.Domain;
 
-namespace SolanaSpin.WebApi.Playground.Features.Create.v1;
+namespace SolanaSpin.WebApi.Playground.Features.CreateDice;
 public static class CreateDiceEndpoint
 {
     internal static RouteHandlerBuilder MapCreateDiceEndpoint(this IEndpointRouteBuilder endpoints)

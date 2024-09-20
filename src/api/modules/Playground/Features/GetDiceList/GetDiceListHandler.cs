@@ -5,7 +5,7 @@ using SolanaSpin.WebApi.Playground.Domain;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace SolanaSpin.WebApi.Playground.Features.GetList.v1;
+namespace SolanaSpin.WebApi.Playground.Features.GetDiceList;
 public sealed class GetDiceListHandler(
     [FromKeyedServices("playground:dice")] IReadRepository<Dice> repository)
     : IRequestHandler<GetDiceListRequest, PagedList<DiceDto>>

@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Mapster;
 
-namespace SolanaSpin.WebApi.Playground.Features.Create.v1;
+namespace SolanaSpin.WebApi.Playground.Features.CreateDice;
 public sealed class CreateDiceHandler(
     ILogger<CreateDiceHandler> logger,
     [FromKeyedServices("playground:dice")] IRepository<Dice> repository)

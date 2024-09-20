@@ -2,7 +2,7 @@
 using MediatR;
 using SolanaSpin.WebApi.Playground.Domain;
 
-namespace SolanaSpin.WebApi.Playground.Features.Create.v1;
+namespace SolanaSpin.WebApi.Playground.Features.CreateDice;
 public record CreateDiceCommand(
     [property: DefaultValue("New Dice")] string Title,
     [property: DefaultValue("new-dice")] string Slug,

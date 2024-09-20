@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
 using SolanaSpin.WebApi.Playground.Persistence;
 
-namespace SolanaSpin.WebApi.Playground.Features.Play.v1;
-public class  PlayDiceValidator : AbstractValidator<PlayDiceRequest>
+namespace SolanaSpin.WebApi.Playground.Features.PlayDice;
+public class PlayDiceValidator : AbstractValidator<PlayDiceRequest>
 {
     public PlayDiceValidator(PlaygroundDbContext context)
     {
