@@ -8,8 +8,4 @@
 		<AssemblyName>SolanaSpin.Blazor.Shared</AssemblyName>
 	</PropertyGroup>
 
-	<ItemGroup>
-	  <ProjectReference Include="..\..\..\api\modules\Shared\Shared.csproj" />
-	</ItemGroup>
-
 </Project>

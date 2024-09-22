@@ -1252,8 +1252,8 @@
       {
         "current": {
           "selected": false,
-          "text": "fullstackhero.api",
-          "value": "fullstackhero.api"
+          "text": "solanaspin.api",
+          "value": "solanaspin.api"
         },
         "datasource": {
           "type": "prometheus",

@@ -1,13 +1,12 @@
-version: "4" #on wsl linux replace 3.8
-name: solanaspin #on wsl linux replace with export COMPOSE_PROJECT_NAME=solanaspin before docker-compose up command
+name: solanaspin
 
 services:
   webapi:
+    container_name: webapi
     image: ${FSH_DOTNETSTARTERKIT_WEBAPI_IMAGE}
     pull_policy: always
-    container_name: webapi
     networks:
-      - solanaspin
+      - internal
     environment:
       ASPNETCORE_ENVIRONMENT: docker
       ASPNETCORE_URLS: https://+:7000;http://+:5000
@@ -25,13 +24,11 @@ services:
       MailOptions__UserName: 2f0f0293a76463
       MailOptions__Password: d6687bedfb7b61
       MailOptions__DisplayName: SolanaSpin
-      CorsOptions__AllowedOrigins__0: http://localhost:5010
-      CorsOptions__AllowedOrigins__1: http://localhost:7100
-      CorsOptions__AllowedOrigins__2: https://localhost:7020
       OpenTelemetryOptions__Endpoint: http://otel-collector:4317
       RateLimitOptions__EnableRateLimiting: "false"
       OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4317
       OTEL_SERVICE_NAME: SolanaSpin.WebApi.Host
+      OriginOptions__OriginUrl: https://game-dev.solanaspin.io/
     volumes:
       - ~/.aspnet/https:/https:ro #on wsl linux
       #- /mnt/c/Users/eduar/.aspnet/https:/https:ro
@@ -44,16 +41,16 @@ services:
     restart: on-failure
 
   blazor:
+    container_name: blazor
     image: ${FSH_DOTNETSTARTERKIT_BLAZOR_IMAGE}
     pull_policy: always
-    container_name: blazor
     environment:
       Frontend_FSHStarterBlazorClient_Settings__AppSettingsTemplate: /usr/share/nginx/html/appsettings.json.TEMPLATE
       Frontend_FSHStarterBlazorClient_Settings__AppSettingsJson: /usr/share/nginx/html/appsettings.json
-      FSHStarterBlazorClient_ApiBaseUrl: https://localhost:7000
-      ApiBaseUrl: https://localhost:7000
+      FSHStarterBlazorClient_ApiBaseUrl:
+      ApiBaseUrl:
     networks:
-      - solanaspin
+      - internal
     entrypoint: [
         "/bin/sh",
         "-c",
@@ -66,17 +63,34 @@ services:
     volumes:
       - ~/.aspnet/https:/https:ro
     ports:
-      - 7100:80
+      - 5100:5100
     depends_on:
       postgres:
         condition: service_healthy
     restart: on-failure
 
+  nginx:
+    container_name: nginx
+    image: nginx:alpine
+    networks:
+      - internal
+      - external
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - $BASE_PATH/nginx/conf.d:/etc/nginx/conf.d:ro
+      - $BASE_PATH/nginx/ssl:/etc/nginx/ssl:ro
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+    depends_on:
+      - webapi
+      - blazor
+
   postgres:
     container_name: postgres
     image: postgres:15-alpine
     networks:
-      - solanaspin
+      - internal
     environment:
       POSTGRES_USER: pgadmin
       POSTGRES_PASSWORD: pgadmin
@@ -92,13 +106,13 @@ services:
       retries: 5
 
   prometheus:
-    image: prom/prometheus:latest
     container_name: prometheus
+    image: prom/prometheus:latest
     restart: unless-stopped
     networks:
-      - solanaspin
+      - internal
     volumes:
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - $BASE_PATH/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - prometheus-data:/prometheus
     ports:
       - 9090:9090
@@ -113,17 +127,17 @@ services:
       - 3000:3000
     volumes:
       - grafana-data:/var/lib/grafana
-      - ./grafana/config/:/etc/grafana/
-      - ./grafana/dashboards/:/var/lib/grafana/dashboards
+      - $BASE_PATH/grafana/config/:/etc/grafana/
+      - $BASE_PATH/grafana/dashboards/:/var/lib/grafana/dashboards
     depends_on:
       - prometheus
     restart: unless-stopped
     networks:
-      - solanaspin
+      - internal
 
   otel-collector:
-    image: otel/opentelemetry-collector-contrib:latest
     container_name: otel-collector
+    image: otel/opentelemetry-collector-contrib:latest
     command: --config /etc/otel/config.yaml
     environment:
       JAEGER_ENDPOINT: "jaeger:4317"
@@ -143,7 +157,7 @@ services:
       - 4317:4317 # OTLP gRPC receiver
       - 4318:4318 # OTLP Http receiver (Protobuf)
     networks:
-      - solanaspin
+      - internal
 
   jaeger:
     container_name: jaeger
@@ -160,7 +174,7 @@ services:
     ports:
       - "16686:16686"
     networks:
-      - solanaspin
+      - internal
 
   loki:
     container_name: loki
@@ -171,11 +185,11 @@ services:
     ports:
       - "3100:3100"
     networks:
-      - solanaspin
+      - internal
 
   node_exporter:
-    image: quay.io/prometheus/node-exporter:v1.5.0
     container_name: node_exporter
+    image: quay.io/prometheus/node-exporter:v1.5.0
     command: "--path.rootfs=/host"
     pid: host
     restart: unless-stopped
@@ -184,7 +198,7 @@ services:
       - /sys:/host/sys:ro
       - /:/rootfs:ro
     networks:
-      - solanaspin
+      - internal
 
 volumes:
   postgres-data:
@@ -192,4 +206,8 @@ volumes:
   prometheus-data:
 
 networks:
-  solanaspin:
+  internal:
+    driver: bridge
+    internal: true
+  external:
+    driver: bridge

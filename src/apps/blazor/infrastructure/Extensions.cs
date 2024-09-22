@@ -9,12 +9,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MudBlazor;
 using MudBlazor.Services;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
 namespace SolanaSpin.Blazor.Infrastructure;
 public static class Extensions
 {
     private const string ClientName = "FullStackHero.API";
-    public static IServiceCollection AddClientServices(this IServiceCollection services, IConfiguration config)
+    public static IServiceCollection AddClientServices(this IServiceCollection services, IConfiguration config, IWebAssemblyHostEnvironment hostEnvironment)
     {
         services.AddMudServices(configuration =>
         {
@@ -31,7 +32,7 @@ public static class Extensions
         {
             client.DefaultRequestHeaders.AcceptLanguage.Clear();
             client.DefaultRequestHeaders.AcceptLanguage.ParseAdd(CultureInfo.DefaultThreadCurrentCulture?.TwoLetterISOLanguageName);
-            client.BaseAddress = new Uri(config["ApiBaseUrl"]!);
+            client.BaseAddress = new Uri(string.IsNullOrEmpty(config["ApiBaseUrl"]) ? hostEnvironment.BaseAddress : config["ApiBaseUrl"]!);
         })
            .AddHttpMessageHandler<JwtAuthenticationHeaderHandler>()
            .Services
