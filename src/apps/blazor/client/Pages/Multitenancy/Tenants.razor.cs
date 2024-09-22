@@ -2,7 +2,7 @@
 using SolanaSpin.Blazor.Client.Components.EntityTable;
 using SolanaSpin.Blazor.Infrastructure.Api;
 using SolanaSpin.Blazor.Infrastructure.Auth;
-using SolanaSpin.Blazor.Shared;
+using SolanaSpin.WebApi.Shared.Authorization;
 using Mapster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;

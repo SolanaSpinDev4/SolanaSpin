@@ -1,0 +1,33 @@
+﻿@page "/jackpots"
+
+<PageHeader Title="Jackpots" Header="Jackpots" SubHeader="Manage your jackpots." />
+
+<EntityTable @ref="_table" TEntity="JackpotDto" TId="Guid" TRequest="UpdateJackpotCommand" Context="@Context">
+    <EditFormContent>
+        @if (!Context.AddEditModal.IsCreate)
+        {
+            <MudItem xs="12" md="12">
+                <MudTextField Value="context.Id" ReadOnly Underline="false" Label="Jackpot Id" />
+            </MudItem>
+        }
+        <MudItem xs="12" md="6">
+            <MudTextField Label="Title" For="@(() => context.Title)" @bind-Value="context.Title" Required />
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <MudTextField Label="Slug" For="@(() => context.Slug)" @bind-Value="context.Slug" Required />
+        </MudItem>
+        <MudItem xs="6" md="3">
+            <MudCheckBox Label="Enabled" For="@(() => context.IsEnabled)" @bind-Value="context.IsEnabled" />
+        </MudItem>
+        <MudItem xs="6" md="3">
+            <MudNumericField Label="Limit Amount" For="@(() => context.LimitAmount)" @bind-Value="context.LimitAmount" />
+        </MudItem>
+         <MudItem xs="6" md="3">
+            <MudNumericField Label="Min Play Amount (to win)" For="@(() => context.MinimumPlayAmountToWin)" @bind-Value="context.MinimumPlayAmountToWin" />
+        </MudItem>
+        <MudItem xs="6" md="3">
+            <MudNumericField Label="Max Play Amount (to win)" For="@(() => context.MaximumPlayAmountToWin)" @bind-Value="context.MaximumPlayAmountToWin" />
+        </MudItem>
+    </EditFormContent>
+
+</EntityTable>

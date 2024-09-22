@@ -4,6 +4,7 @@ using Blazored.LocalStorage;
 using SolanaSpin.Blazor.Infrastructure.Api;
 using SolanaSpin.Blazor.Infrastructure.Storage;
 using SolanaSpin.Blazor.Shared;
+using SolanaSpin.WebApi.Shared.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;

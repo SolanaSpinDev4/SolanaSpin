@@ -16,6 +16,7 @@ public sealed class PlaygroundDbContext : FshDbContext
     }
 
     public DbSet<Dice> Dice { get; set; } = null!;
+    public DbSet<Jackpot> Jackpots { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

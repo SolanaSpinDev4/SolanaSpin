@@ -1,4 +1,4 @@
-﻿using SolanaSpin.Blazor.Shared;
+﻿using SolanaSpin.WebApi.Shared.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 

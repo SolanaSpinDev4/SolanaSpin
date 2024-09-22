@@ -1,7 +1,7 @@
 ﻿using SolanaSpin.Blazor.Client.Components;
 using SolanaSpin.Blazor.Infrastructure.Api;
 using SolanaSpin.Blazor.Infrastructure.Auth;
-using SolanaSpin.Blazor.Shared;
+using SolanaSpin.WebApi.Shared.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;

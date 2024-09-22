@@ -1,13 +1,13 @@
-﻿@page "/dice"
+﻿@page "/wheels"
 
-<PageHeader Title="Dice" Header="Dice" SubHeader="Manage your Dice." />
+<PageHeader Title="Wheels" Header="Wheels" SubHeader="Manage your wheels." />
 
 <EntityTable @ref="_table" TEntity="DiceDto" TId="Guid" TRequest="UpdateDiceCommand" Context="@Context">
     <EditFormContent>
         @if (!Context.AddEditModal.IsCreate)
         {
             <MudItem xs="12" md="12">
-                <MudTextField Value="context.Id" ReadOnly Underline="false" Label="Dice Id" />
+                <MudTextField Value="context.Id" ReadOnly Underline="false" Label="Wheel Id" />
             </MudItem>
         }
         <MudItem xs="12" md="6">

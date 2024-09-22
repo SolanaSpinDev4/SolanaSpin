@@ -10,7 +10,8 @@ public enum FaceResultType
     Empty = 0,
     Multiplier,
     FixedAmount,
-    NewDicePlay
+    NewDicePlay,
+    RaffleTicket
 }
 public class Face
 {
@@ -39,19 +40,17 @@ public class Dice : AuditableEntity, IAggregateRoot
 
     public static Dice Create(CreateDiceCommand request)
     {
-        var dice = new Dice
+        var item = new Dice
         {
             Title = request.Title,
             Slug = request.Slug,
             IsPubliclyPlayable = request.IsPubliclyPlayable,
             MinimumPlayAmount = request.MinimumPlayAmount,
             MaximumPlayAmount = request.MaximumPlayAmount,
-            Faces = request.Faces ?? []
+            Faces = request.Faces ?? [],
         };
-
-        dice.QueueDomainEvent(new DiceCreated(dice));
-
-        return dice;
+        item.QueueDomainEvent(new DiceCreated(item));
+        return item;
     }
 
     public Dice Update(UpdateDiceCommand request)
@@ -64,9 +63,7 @@ public class Dice : AuditableEntity, IAggregateRoot
         if (request.MaximumPlayAmount.HasValue && !MaximumPlayAmount.Equals(request.MaximumPlayAmount.Value)) MaximumPlayAmount = request.MaximumPlayAmount.Value;
         if (request.ResetMaximumPlayAmount) MaximumPlayAmount = null;
         if (request.Faces is not null) Faces = request.Faces;
-
-        this.QueueDomainEvent(new DiceUpdated(this));
-
+        QueueDomainEvent(new DiceUpdated(this));
         return this;
     }
 }

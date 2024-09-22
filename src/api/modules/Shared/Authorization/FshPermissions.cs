@@ -26,6 +26,7 @@ public static class FshResource
     public const string Roles = nameof(Roles);
     public const string RoleClaims = nameof(RoleClaims);
     public const string Dice = nameof(Dice);
+    public const string Jackpots = nameof(Jackpots);
 }
 
 public static class FshPermissions
@@ -54,6 +55,9 @@ public static class FshPermissions
         new("View RoleClaims", FshAction.View, FshResource.RoleClaims),
         new("Update RoleClaims", FshAction.Update, FshResource.RoleClaims),
 
+        //play
+        new("Play Dice", FshAction.Play, FshResource.Dice, IsBasic: true),
+
         //dice
         new("View Dice", FshAction.View, FshResource.Dice, IsBasic: true),
         new("Search Dice", FshAction.Search, FshResource.Dice, IsBasic: true),
@@ -61,7 +65,14 @@ public static class FshPermissions
         new("Update Dice", FshAction.Update, FshResource.Dice),
         new("Delete Dice", FshAction.Delete, FshResource.Dice),
         new("Export Dice", FshAction.Export, FshResource.Dice),
-        new("Play Dice", FshAction.Play, FshResource.Dice, IsBasic: true),
+
+        //jackpots
+        new("View Jackpots", FshAction.View, FshResource.Jackpots, IsBasic: true),
+        new("Search Jackpots", FshAction.Search, FshResource.Jackpots, IsBasic: true),
+        new("Create Jackpots", FshAction.Create, FshResource.Jackpots),
+        new("Update Jackpots", FshAction.Update, FshResource.Jackpots),
+        new("Delete Jackpots", FshAction.Delete, FshResource.Jackpots),
+        new("Export Jackpots", FshAction.Export, FshResource.Jackpots),
 
         new("View Hangfire", FshAction.View, FshResource.Hangfire),
         new("View Dashboard", FshAction.View, FshResource.Dashboard),

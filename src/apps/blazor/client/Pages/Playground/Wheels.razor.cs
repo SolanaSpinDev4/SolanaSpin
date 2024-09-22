@@ -1,12 +1,12 @@
 ﻿using SolanaSpin.Blazor.Client.Components.EntityTable;
 using SolanaSpin.Blazor.Infrastructure.Api;
-using SolanaSpin.Blazor.Shared;
+using SolanaSpin.WebApi.Shared.Authorization;
 using Mapster;
 using Microsoft.AspNetCore.Components;
 
-namespace SolanaSpin.Blazor.Client.Pages.Dice;
+namespace SolanaSpin.Blazor.Client.Pages.Playground;
 
-public partial class Dice
+public partial class Wheels
 {
     [Inject]
     protected IApiClient ApiClient { get; set; } = default!;
@@ -18,24 +18,24 @@ public partial class Dice
     protected override void OnInitialized()
     {
         Context = new(
-            entityName: "Dice",
-            entityNamePlural: "Dice",
-            entityResource: FshResources.Dice,
+            entityName: "Wheel",
+            entityNamePlural: "Wheels",
+            entityResource: FshResource.Dice,
             fields: [
-                new(item => item.Id, "Dice Id"),
+                new(item => item.Id, "Wheel Id"),
                 new(item => item.Title, "Title"),
                 new(item => item.Slug, "Slug"),
                 new(item => item.IsPubliclyPlayable, "Public"),
                 new(item => item.MinimumPlayAmount, "Min Amount"),
                 new(item => item.MaximumPlayAmount, "Max Amount"),
-                new(item => $"{item.Faces.Count} faces", "Faces Count"),
+                new(item => $"{item.Faces?.Count ?? 0} outcomes", "Outcome Count"),
             ],
             enableAdvancedSearch: false,
             idFunc: item => item.Id,
             searchFunc: async filter =>
             {
-                var diceFilter = filter.Adapt<PaginationFilter>();
-                var result = await ApiClient.GetDiceListEndpointAsync("1", diceFilter);
+                var paginationFilter = filter.Adapt<PaginationFilter>();
+                var result = await ApiClient.GetDiceListEndpointAsync("1", paginationFilter);
                 return result.Adapt<PaginationResponse<DiceDto>>();
             },
             editFormInitializedFunc: item =>

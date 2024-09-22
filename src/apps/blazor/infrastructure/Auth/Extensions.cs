@@ -1,6 +1,5 @@
-﻿using SolanaSpin.Blazor.Shared;
-using SolanaSpin.Blazor.Infrastructure.Auth.Jwt;
-using SolanaSpin.Blazor.Shared;
+﻿using SolanaSpin.Blazor.Infrastructure.Auth.Jwt;
+using SolanaSpin.WebApi.Shared.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;

@@ -29,7 +29,7 @@ public sealed class PlayDiceHandler(
         var returnAmount = request.PlayAmount;
 
         logger.LogInformation("dice {Id} played", item.Id);
-        return new(request, new(item.Adapt<DiceDto>(), faceIndex, returnAmount));
+        return new PlayDiceResponse(request, new PlayDiceResult(item.Adapt<DiceDto>(), faceIndex, returnAmount));
     }
 }
 

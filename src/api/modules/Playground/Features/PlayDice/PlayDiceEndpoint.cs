@@ -10,7 +10,7 @@ public static class PlayDiceEndpoint
 {
     internal static RouteHandlerBuilder MapPlayDiceEndpoint(this IEndpointRouteBuilder endpoints)
     {
-        return endpoints.MapPost("/play", async (PlayDiceRequest request, ISender mediator) =>
+        return endpoints.MapPost("/", async (PlayDiceRequest request, ISender mediator) =>
                 {
                     var response = await mediator.Send(request);
                     return Results.Ok(response);

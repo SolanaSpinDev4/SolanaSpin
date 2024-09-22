@@ -5,23 +5,44 @@
             <CellTemplate>
                 @switch (context.Item.ResultType)
                 {
-                    case FaceResultType._0: <MudText>Empty</MudText> break;
-                    case FaceResultType._1: <MudText>Multiplier</MudText> break;
-                    case FaceResultType._2: <MudText>FixedAmount</MudText> break;
-                    case FaceResultType._3: <MudText>New Dice Play</MudText> break;
+                    case FaceResultType._0:
+                        <MudText Class="mud-typography-nowrap">Empty</MudText>
+                        break;
+                    case FaceResultType._1:
+                        <MudText Class="mud-typography-nowrap">Multiplier</MudText>
+                        break;
+                    case FaceResultType._2:
+                        <MudText Class="mud-typography-nowrap">FixedAmount</MudText>
+                        break;
+                    case FaceResultType._3:
+                        <MudText Class="mud-typography-nowrap">New Dice Play</MudText>
+                        break;
+                    case FaceResultType._4:
+                        <MudText Class="mud-typography-nowrap">Raffle Ticket</MudText>
+                        break;
                 }
             </CellTemplate>
             <EditTemplate>
                 <MudSelect For="@(() => context.Item.ResultType)" @bind-Value="context.Item.ResultType" Required RequiredError="You must select type" Margin="@Margin.Dense">
-                    <MudSelectItem Value="FaceResultType._0">Empty</MudSelectItem>
-                    <MudSelectItem Value="FaceResultType._1">Multiplier</MudSelectItem>
-                    <MudSelectItem Value="FaceResultType._2">Fixed Amount</MudSelectItem>
-                    <MudSelectItem Value="FaceResultType._3">New Dice Play</MudSelectItem>
+                    <MudSelectItem Value="FaceResultType._0" Class="mud-typography-nowrap">Empty</MudSelectItem>
+                    <MudSelectItem Value="FaceResultType._1" Class="mud-typography-nowrap">Multiplier</MudSelectItem>
+                    <MudSelectItem Value="FaceResultType._2" Class="mud-typography-nowrap">Fixed Amount</MudSelectItem>
+                    <MudSelectItem Value="FaceResultType._3" Class="mud-typography-nowrap">New Dice Play</MudSelectItem>
+                    <MudSelectItem Value="FaceResultType._4" Class="mud-typography-nowrap">Raffle Ticket</MudSelectItem>
                 </MudSelect>
             </EditTemplate>
         </PropertyColumn>
-        <PropertyColumn Property="x => x.ResultValue" Title="Result Type" Required="false" />
+        <PropertyColumn Property="x => x.ResultValue" Title="Result Value" Required="false">
+            <HeaderTemplate>
+                <MudTooltip Text="Some information about this">
+                    <MudBadge Icon="@Icons.Material.Filled.Lock" Color="Color.Info" Overlap="true" Bordered="true" Class="mx-6 my-4">
+                        <MudText>Result Value</MudText>
+                    </MudBadge>
+                </MudTooltip>
+            </HeaderTemplate>
+        </PropertyColumn>
         <PropertyColumn Property="x => x.Weight" Title="Weight" />
+        <PropertyColumn Property="@(x => $"{x.Weight / Faces.Sum(x => x.Weight):P2}")" Title="Chance" Editable="false" />
         <TemplateColumn CellClass="mud-typography-align-right" Editable="false">
             <CellTemplate>
                 <MudIconButton Icon="@Icons.Material.Outlined.Delete" OnClick="e => Faces.Remove(context.Item)" />
