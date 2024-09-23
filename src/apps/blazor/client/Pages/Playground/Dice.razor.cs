@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace SolanaSpin.Blazor.Client.Pages.Playground;
 
-public partial class Wheels
+public partial class Dice
 {
     [Inject]
     protected IApiClient ApiClient { get; set; } = default!;

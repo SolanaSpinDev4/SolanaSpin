@@ -12,7 +12,7 @@ services:
       ASPNETCORE_URLS: https://+:7000;http://+:5000
       ASPNETCORE_HTTPS_PORT: 7000
       ASPNETCORE_Kestrel__Certificates__Default__Password: password!
-      ASPNETCORE_Kestrel__Certificates__Default__Path: /https/cert.pfx
+      ASPNETCORE_Kestrel__Certificates__Default__Path: /webapi/cert.pfx
       DatabaseOptions__ConnectionString: Server=postgres;Port=5433;Database=solanaspin;User Id=pgadmin;Password=pgadmin
       DatabaseOptions__Provider: postgresql
       JwtOptions__Key: QsJbczCNysv/5SGh+U7sxedX8C07TPQPBdsnSDKZ/aE=
@@ -30,7 +30,7 @@ services:
       OTEL_SERVICE_NAME: SolanaSpin.WebApi.Host
       OriginOptions__OriginUrl: https://game-dev.solanaspin.io/
     volumes:
-      - ~/.aspnet/https:/https:ro #on wsl linux
+      - $BASE_PATH/webapi:/webapi:ro #on wsl linux
       #- /mnt/c/Users/eduar/.aspnet/https:/https:ro
     ports:
       - 7000:7000

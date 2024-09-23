@@ -1,6 +1,6 @@
 ﻿<MudDataGrid T="Face" Items="@Faces" ReadOnly="false" EditMode="DataGridEditMode.Cell" SortMode="SortMode.None">
     <Columns>
-        <PropertyColumn Property="@(x => $"#{Faces.ToList().IndexOf(x) + 1}")" Title="Face Index" Editable="false" />
+        <PropertyColumn Property="@(x => $"#{Faces.ToList().IndexOf(x) + 1}")" Title="Result Index" Editable="false" />
         <PropertyColumn Property="x => x.ResultType" Title="Result Type">
             <CellTemplate>
                 @switch (context.Item.ResultType)
@@ -15,7 +15,7 @@
                         <MudText Class="mud-typography-nowrap">FixedAmount</MudText>
                         break;
                     case FaceResultType._3:
-                        <MudText Class="mud-typography-nowrap">New Dice Play</MudText>
+                        <MudText Class="mud-typography-nowrap">New Spin</MudText>
                         break;
                     case FaceResultType._4:
                         <MudText Class="mud-typography-nowrap">Raffle Ticket</MudText>
@@ -27,7 +27,7 @@
                     <MudSelectItem Value="FaceResultType._0" Class="mud-typography-nowrap">Empty</MudSelectItem>
                     <MudSelectItem Value="FaceResultType._1" Class="mud-typography-nowrap">Multiplier</MudSelectItem>
                     <MudSelectItem Value="FaceResultType._2" Class="mud-typography-nowrap">Fixed Amount</MudSelectItem>
-                    <MudSelectItem Value="FaceResultType._3" Class="mud-typography-nowrap">New Dice Play</MudSelectItem>
+                    <MudSelectItem Value="FaceResultType._3" Class="mud-typography-nowrap">New Spin</MudSelectItem>
                     <MudSelectItem Value="FaceResultType._4" Class="mud-typography-nowrap">Raffle Ticket</MudSelectItem>
                 </MudSelect>
             </EditTemplate>
