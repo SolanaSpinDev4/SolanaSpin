@@ -35,16 +35,16 @@
 
 .spinButton {
     position: absolute;
-    bottom: -200px; /* Adjust to fit within the container */
-    left: 50%;
-    transform: translateX(-50%);
+    top: 50%; /* Center the button vertically */
+    left: 50%; /* Center the button horizontally */
+    transform: translate(-50%, -50%); /* Adjust to center */
     background: none;
     border: none;
     cursor: pointer;
+    z-index: 20; /* Ensure it's above the wheel */
 }
 
 .spinButton img {
-    width: 500px; /* Width of spin button */
-    height: auto; /* Maintain aspect ratio */
+    width: 500px; /* Adjust button size */
+    height: auto; /* Adjust button size */
 }
-

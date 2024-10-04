@@ -18,11 +18,11 @@ const Tabs: React.FC = () => {
     const renderContent = () => {
         switch (activeTab) {
             case 1:
-                return <RouletteWheel key={keys[0]} color="white" />;
+                return <RouletteWheel key={keys[0]} color="blue" />;
             case 2:
-                return <RouletteWheel key={keys[1]} color="blue" />;
+                return <RouletteWheel key={keys[1]} color="green" />;
             case 3:
-                return <RouletteWheel key={keys[2]} color="green" />;
+                return <RouletteWheel key={keys[2]} color="white" />;
             default:
                 return null;
         }
@@ -35,19 +35,19 @@ const Tabs: React.FC = () => {
                     onClick={() => handleTabClick(1)}
                     className={activeTab === 1 ? styles.active : ''}
                 >
-                    50/50
+                    Normal
                 </button>
                 <button
                     onClick={() => handleTabClick(2)}
                     className={activeTab === 2 ? styles.active : ''}
                 >
-                    Low Risk
+                    Degen
                 </button>
                 <button
                     onClick={() => handleTabClick(3)}
                     className={activeTab === 3 ? styles.active : ''}
                 >
-                    Whale
+                    Retardio
                 </button>
             </div>
             <div className={styles.tabContent}>{renderContent()}</div>
