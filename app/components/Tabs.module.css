@@ -1,0 +1,25 @@
+.tabButtons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0px;
+}
+
+.tabButtons button {
+    margin: 0 10px;
+    padding: 0px 10px;
+    cursor: pointer;
+    background-color: #ddd;
+    border: none;
+    border-radius: 5px;
+    color: #333;
+}
+
+.tabButtons button.active {
+    background-color: #555;
+    color: white;
+}
+
+.tabContent {
+    display: flex;
+    justify-content: center;
+}
