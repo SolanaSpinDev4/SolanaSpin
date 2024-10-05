@@ -3,17 +3,17 @@ name: solanaspin
 services:
   webapi:
     container_name: webapi
-    image: ${FSH_DOTNETSTARTERKIT_WEBAPI_IMAGE}
+    image: ${WEBAPI_IMAGE}
     pull_policy: always
     networks:
       - internal
     environment:
-      ASPNETCORE_ENVIRONMENT: docker
+      ASPNETCORE_ENVIRONMENT: Production
       ASPNETCORE_URLS: https://+:7000;http://+:5000
       ASPNETCORE_HTTPS_PORT: 7000
       ASPNETCORE_Kestrel__Certificates__Default__Password: password!
       ASPNETCORE_Kestrel__Certificates__Default__Path: /webapi/cert.pfx
-      DatabaseOptions__ConnectionString: Server=postgres;Port=5433;Database=solanaspin;User Id=pgadmin;Password=pgadmin
+      DatabaseOptions__ConnectionString: Server=postgres;Port=5433;Database=game;User Id=pgadmin;Password=pgadmin
       DatabaseOptions__Provider: postgresql
       JwtOptions__Key: QsJbczCNysv/5SGh+U7sxedX8C07TPQPBdsnSDKZ/aE=
       HangfireOptions__Username: admin
@@ -24,31 +24,72 @@ services:
       MailOptions__UserName: 2f0f0293a76463
       MailOptions__Password: d6687bedfb7b61
       MailOptions__DisplayName: SolanaSpin
+      CorsOptions__AllowedOrigins__0: http://localhost:5100
+      CorsOptions__AllowedOrigins__1: http://localhost:7100
       OpenTelemetryOptions__Endpoint: http://otel-collector:4317
       RateLimitOptions__EnableRateLimiting: "false"
       OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4317
       OTEL_SERVICE_NAME: SolanaSpin.WebApi.Host
-      OriginOptions__OriginUrl: https://game-dev.solanaspin.io/
+      OriginOptions__OriginUrl: ${GAME_URL}
     volumes:
-      - $BASE_PATH/webapi:/webapi:ro #on wsl linux
-      #- /mnt/c/Users/eduar/.aspnet/https:/https:ro
+      - $BASE_PATH/webapi:/webapi:ro
     ports:
       - 7000:7000
       - 5000:5000
     depends_on:
       postgres:
         condition: service_healthy
-    restart: on-failure
+    restart: unless-stopped
+
+  webapi_dev:
+    container_name: webapi_dev
+    image: ${WEBAPI_DEV_IMAGE}
+    pull_policy: always
+    networks:
+      - internal
+    environment:
+      ASPNETCORE_ENVIRONMENT: Staging
+      ASPNETCORE_URLS: https://+:7000;http://+:5000
+      ASPNETCORE_HTTPS_PORT: 7000
+      ASPNETCORE_Kestrel__Certificates__Default__Password: password!
+      ASPNETCORE_Kestrel__Certificates__Default__Path: /webapi/cert.pfx
+      DatabaseOptions__ConnectionString: Server=postgres;Port=5433;Database=game_dev;User Id=pgadmin;Password=pgadmin
+      DatabaseOptions__Provider: postgresql
+      JwtOptions__Key: QsJbczCNysv/5SGh+U7sxedX8C07TPQPBdsnSDKZ/aE=
+      HangfireOptions__Username: admin
+      HangfireOptions__Password: Secure1234!Me
+      MailOptions__From: no-reply@solanaspin.io
+      MailOptions__Host: sandbox.smtp.mailtrap.io
+      MailOptions__Port: 587
+      MailOptions__UserName: 2f0f0293a76463
+      MailOptions__Password: d6687bedfb7b61
+      MailOptions__DisplayName: SolanaSpin
+      CorsOptions__AllowedOrigins__0: http://localhost:5100
+      CorsOptions__AllowedOrigins__1: http://localhost:7100
+      OpenTelemetryOptions__Endpoint: http://otel-collector:4317
+      RateLimitOptions__EnableRateLimiting: "false"
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4317
+      OTEL_SERVICE_NAME: SolanaSpinDev.WebApi.Host
+      OriginOptions__OriginUrl: ${GAME_DEV_URL}
+    volumes:
+      - $BASE_PATH/webapi:/webapi:ro
+    ports:
+      - 7000:7000
+      - 5000:5000
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
 
   blazor:
     container_name: blazor
-    image: ${FSH_DOTNETSTARTERKIT_BLAZOR_IMAGE}
+    image: ${BLAZOR_IMAGE}
     pull_policy: always
     environment:
       Frontend_FSHStarterBlazorClient_Settings__AppSettingsTemplate: /usr/share/nginx/html/appsettings.json.TEMPLATE
       Frontend_FSHStarterBlazorClient_Settings__AppSettingsJson: /usr/share/nginx/html/appsettings.json
-      FSHStarterBlazorClient_ApiBaseUrl:
-      ApiBaseUrl:
+      FSHStarterBlazorClient_ApiBaseUrl: ${GAME_URL}
+      ApiBaseUrl: ${GAME_URL}
     networks:
       - internal
     entrypoint: [
@@ -60,14 +101,39 @@ services:
         /usr/share/nginx/html -type f | xargs chmod +r && exec nginx -g
         'daemon off;'",
       ]
-    volumes:
-      - ~/.aspnet/https:/https:ro
     ports:
       - 5100:5100
     depends_on:
       postgres:
         condition: service_healthy
-    restart: on-failure
+    restart: unless-stopped
+
+  blazor_dev:
+    container_name: blazor_dev
+    image: ${BLAZOR_DEV_IMAGE}
+    pull_policy: always
+    environment:
+      Frontend_FSHStarterBlazorClient_Settings__AppSettingsTemplate: /usr/share/nginx/html/appsettings.json.TEMPLATE
+      Frontend_FSHStarterBlazorClient_Settings__AppSettingsJson: /usr/share/nginx/html/appsettings.json
+      FSHStarterBlazorClient_ApiBaseUrl: ${GAME_DEV_URL}
+      ApiBaseUrl: ${GAME_DEV_URL}
+    networks:
+      - internal
+    entrypoint: [
+        "/bin/sh",
+        "-c",
+        "envsubst <
+        $${Frontend_FSHStarterBlazorClient_Settings__AppSettingsTemplate} >
+        $${Frontend_FSHStarterBlazorClient_Settings__AppSettingsJson} && find
+        /usr/share/nginx/html -type f | xargs chmod +r && exec nginx -g
+        'daemon off;'",
+      ]
+    ports:
+      - 5100:5100
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
 
   nginx:
     container_name: nginx
@@ -85,6 +151,7 @@ services:
     depends_on:
       - webapi
       - blazor
+    restart: unless-stopped
 
   postgres:
     container_name: postgres
@@ -98,12 +165,13 @@ services:
     ports:
       - 5433:5433
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U pgadmin"]
       interval: 10s
       timeout: 5s
       retries: 5
+    restart: unless-stopped
 
   prometheus:
     container_name: prometheus
@@ -113,7 +181,7 @@ services:
       - internal
     volumes:
       - $BASE_PATH/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-      - prometheus-data:/prometheus
+      - prometheus_data:/prometheus
     ports:
       - 9090:9090
 
@@ -126,7 +194,7 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - grafana-data:/var/lib/grafana
+      - grafana_data:/var/lib/grafana
       - $BASE_PATH/grafana/config/:/etc/grafana/
       - $BASE_PATH/grafana/dashboards/:/var/lib/grafana/dashboards
     depends_on:
@@ -156,6 +224,7 @@ services:
       - "55679:55679" # ZPages extension
       - 4317:4317 # OTLP gRPC receiver
       - 4318:4318 # OTLP Http receiver (Protobuf)
+    restart: unless-stopped
     networks:
       - internal
 
@@ -173,6 +242,7 @@ services:
       - prometheus
     ports:
       - "16686:16686"
+    restart: unless-stopped
     networks:
       - internal
 
@@ -184,6 +254,7 @@ services:
       - $BASE_PATH/loki/loki.yml:/mnt/config/loki-config.yml
     ports:
       - "3100:3100"
+    restart: unless-stopped
     networks:
       - internal
 
@@ -192,18 +263,25 @@ services:
     image: quay.io/prometheus/node-exporter:v1.5.0
     command: "--path.rootfs=/host"
     pid: host
-    restart: unless-stopped
     volumes:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
       - /:/rootfs:ro
+    restart: unless-stopped
     networks:
       - internal
 
 volumes:
-  postgres-data:
-  grafana-data:
-  prometheus-data:
+  postgres_data:
+    name: postgres_data
+  grafana_data:
+    name: grafana_data
+  prometheus_data:
+    name: prometheus_data
+  mysql_data:
+    name: mysql_data
+  wordpress_data:
+    name: wordpress_data
 
 networks:
   internal:

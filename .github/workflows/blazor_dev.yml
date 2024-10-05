@@ -1,18 +1,18 @@
-name: Blazor
+name: Blazor Dev
 
 on:
   workflow_dispatch:
 
   push:
     branches:
-      - main
+      - dev
     paths:
       - "src/apps/blazor/**"
       - "src/Directory.Packages.props"
 
   pull_request:
     branches:
-      - main
+      - dev
     paths:
       - "src/apps/blazor/**"
       - "src/Directory.Packages.props"
@@ -52,5 +52,5 @@ jobs:
       - name: build and publish to github container registry
         working-directory: ./src/apps/blazor/
         run: |
-          docker build -t ghcr.io/solanaspindev/blazor:stable -f Dockerfile .
-          docker push ghcr.io/solanaspindev/blazor:stable
+          docker build -t ghcr.io/solanaspindev/blazor:latest -f Dockerfile .
+          docker push ghcr.io/solanaspindev/blazor:latest
