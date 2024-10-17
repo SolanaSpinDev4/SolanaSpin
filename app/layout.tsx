@@ -1,16 +1,12 @@
-import type { Metadata } from "next";
+import type {Metadata} from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
-
-
-import { Inter } from "next/font/google";
+import {NextUIProvider} from '@nextui-org/react';
 import Providers from "./providers";
-
 import Header from './components/Header';
-import Footer from './components/Footer';
 
-const inter = Inter({ subsets: ["latin"] });
+
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -30,25 +26,28 @@ export const metadata: Metadata = {
 };
 
 
-import { headers } from "next/headers";
+import {headers} from "next/headers";
 
 export default function RootLayout({
-  children,
-}: Readonly<{
+                                     children,
+                                   }: Readonly<{
   children: React.ReactNode;
 }>) {
-    const cookie = headers().get("cookie");
+  const cookie = headers().get("cookie");
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-      <Providers cookie={cookie}>
-          <Header />
+    <body
+      className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+    >
+    <Providers cookie={cookie}>
+      <NextUIProvider>
+        <div className="min-h-screen ">
+          {/*<Header/>*/}
           <main>{children}</main>
-          <Footer />
-      </Providers>
-      </body>
+        </div>
+      </NextUIProvider>
+    </Providers>
+    </body>
     </html>
   );
 }

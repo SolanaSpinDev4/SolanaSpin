@@ -1,16 +1,12 @@
 "use client";
-
-import Image from "next/image";
-import { ConnectBtn } from "./components/connectButton";
-import Profile from "./components/profile";
-import Tabs from './components/Tabs';
+import WheelContainer from './components/WheelContainer';
 import Balance from "@/app/components/Balance";
 
 export default function Home() {
   return (
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <Tabs />
-        {/*<Profile/>*/}<Balance />
-      </main>
+    <section className="flex flex-col items-center justify-between p-24 h-screen-minus-80">
+      <WheelContainer/>
+      <Balance/>
+    </section>
   );
 }
