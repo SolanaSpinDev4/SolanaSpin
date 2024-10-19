@@ -104,8 +104,7 @@ services:
     ports:
       - 5100:5100
     depends_on:
-      postgres:
-        condition: service_healthy
+      - webapi
     restart: unless-stopped
 
   blazor_dev:
@@ -131,8 +130,37 @@ services:
     ports:
       - 5100:5100
     depends_on:
-      postgres:
-        condition: service_healthy
+      - webapi-dev
+    restart: unless-stopped
+
+  nextjs:
+    container_name: nextjs
+    image: ${NEXTJS_IMAGE}
+    pull_policy: always
+    environment:
+      API_BASE_URL: ${GAME_URL}
+      PORT: "5200"
+    networks:
+      - internal
+    ports:
+      - 5200:5200
+    depends_on:
+      - webapi
+    restart: unless-stopped
+
+  nextjs_dev:
+    container_name: blazor_dev
+    image: ${BLAZOR_DEV_IMAGE}
+    pull_policy: always
+    environment:
+      API_BASE_URL: ${GAME_DEV_URL}
+      PORT: "5200"
+    networks:
+      - internal
+    ports:
+      - 5200:5200
+    depends_on:
+      - webapi
     restart: unless-stopped
 
   nginx:

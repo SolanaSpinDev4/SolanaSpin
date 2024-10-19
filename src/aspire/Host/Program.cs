@@ -9,9 +9,15 @@ builder.AddContainer("prometheus", "prom/prometheus")
        .WithBindMount("../../../compose/prometheus", "/etc/prometheus", isReadOnly: true)
        .WithHttpEndpoint(port: 9090, targetPort: 9090);
 
-builder.AddProject<Projects.Server>("webapi");
+var webapi = builder.AddProject<Projects.Server>("webapi");
 
-builder.AddProject<Projects.Client>("blazor");
+_ = builder.AddProject<Projects.Client>("blazor");
+
+builder.AddNpmApp("nextjs", "../../apps/nextjs", scriptName: "dev")
+    .WithReference(webapi)
+    .WithHttpEndpoint(env: "PORT", port: 5200)
+    .WithExternalHttpEndpoints()
+    .PublishAsDockerFile();
 
 using var app = builder.Build();
 
