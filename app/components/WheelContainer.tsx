@@ -1,12 +1,21 @@
 import React from 'react';
 import {useState, useRef, useEffect} from 'react';
 
+
+const videoSources = [
+  'videos/S_W_Situation_Videos_Wood_Wheel_14_Spaces-1.mp4',
+  'videos/S_W_Situation_Videos_Wood_Wheel_14_Spaces-2.mp4',
+  'videos/S_W_Situation_Videos_Wood_Wheel_14_Spaces-3.mp4',
+  'videos/S_W_Situation_Videos_Wood_Wheel_14_Spaces-4.mp4',
+];
+
 const WheelContainer: React.FC = ({}) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef(null); // Reference to the video element
   const [videoId, setVideoId] = useState(1);
   const [balance, setBalance] = useState(10000);
   const [ticket, setTicket] = useState(0);
+  const [videoBlobs, setVideoBlobs] = useState([]); // Store video blob URLs
 
   const handlePlayVideo = () => {
     // Set the new video number, but do NOT play the video immediately
@@ -15,59 +24,55 @@ const WheelContainer: React.FC = ({}) => {
   };
 
 
+  // Preload videos into blobs
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.load(); // Load the new video source
-      if (isPlaying) {
-        videoRef.current.play(); // Play the video if isPlaying is true
-      }
+    const fetchVideos = async () => {
+      const blobs = await Promise.all(
+        videoSources.map(async (src) => {
+          const response = await fetch(src);
+          const blob = await response.blob();
+          return URL.createObjectURL(blob); // Convert to blob URL
+        })
+      );
+      setVideoBlobs(blobs); // Store blob URLs in state
+    };
+
+    fetchVideos().then(r => r);
+  }, []);
+
+  useEffect(() => {
+    if (videoRef.current && isPlaying) {
+      videoRef.current.play(); // Play the video if isPlaying is true
     }
   }, [videoId, isPlaying]);
-
   const handleVideoEnd = () => {
     setIsPlaying(false);
-    console.log('videoId in WheelContainer is ->', videoId);
-    // onVideoEnd(videoId)
     if (videoId === 1) {
-      console.log('balance is flat');
-      setBalance(balance);
+      setBalance(balance); // Flat balance
     } else if (videoId === 2) {
-      const bl = balance * 2
-      console.log('balance is doubled');
-      setBalance(bl);
-      console.log(balance);
+      setBalance(balance * 2); // Double balance
     } else if (videoId === 3) {
-      console.log('ticket is added');
-      const tk = ticket + 1;
-      setTicket(tk);
+      setTicket(ticket + 1); // Add a ticket
     } else if (videoId === 4) {
-      console.log('balance is lost');
-      const bl = 0
-      console.log(balance);
-      setBalance(bl);
-    } else {
-      console.log(balance);
-      setBalance(balance)
-      console.log(balance);
+      setBalance(0); // Lose balance
     }
   };
 
   return (
     <div className="md:absolute top-0 left-0 w-full md:h-full overflow-hidden -z-1 video-container">
-      <video
-        ref={videoRef}
-        onEnded={handleVideoEnd}
-        loop={false}
-        controls={false}
-        muted={true}
-        playsInline
-        className="md:absolute w-full h-full object-cover"
-      >
-        {videoId === 1 && <source src={`videos/S_W_Situation_Videos_Wood_Wheel_14_Spaces-1.mp4`} type="video/mp4"/>}
-        {videoId === 2 && <source src={`videos/S_W_Situation_Videos_Wood_Wheel_14_Spaces-2.mp4`} type="video/mp4"/>}
-        {videoId === 3 && <source src={`videos/S_W_Situation_Videos_Wood_Wheel_14_Spaces-3.mp4`} type="video/mp4"/>}
-        {videoId === 4 && <source src={`videos/S_W_Situation_Videos_Wood_Wheel_14_Spaces-4.mp4`} type="video/mp4"/>}
-      </video>
+      {videoBlobs.length > 0 && (
+        <video
+          ref={videoRef}
+          onEnded={handleVideoEnd}
+          loop={false}
+          controls={false}
+          muted={true}
+          playsInline
+          className="md:absolute w-full h-full object-cover"
+        >
+          <source src={videoBlobs[videoId - 1]} type="video/mp4"/>
+        </video>
+      )}
       <div className="font-bold text-xl z-20 absolute top-0 left-0 flex flex-col">
         <span>Balance: ${balance.toFixed(2)}</span>
         <span>Tickets: {ticket}</span>
@@ -83,7 +88,7 @@ const WheelContainer: React.FC = ({}) => {
         )}
       </div>
     </div>
-);
+  );
 };
 
 export default WheelContainer;
