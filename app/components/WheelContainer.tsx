@@ -1,33 +1,55 @@
 import React from 'react';
 import {useState, useRef, useEffect} from 'react';
 
-/**
- * Generates a random integer between 1 and 4, inclusive.
- *
- * @return {number} A random integer between 1 and 4.
- */
-
-const WheelContainer: React.FC = ({children}: any) => {
+const WheelContainer: React.FC = ({}) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const videoRef = useRef(null); // Reference to the video element
-  const [video, setVideo] = useState(1);
+  const [videoId, setVideoId] = useState(1);
+  const [balance, setBalance] = useState(10000);
+  const [ticket, setTicket] = useState(0);
 
   const handlePlayVideo = () => {
     // Set the new video number, but do NOT play the video immediately
-    setVideo(Math.floor(Math.random() * 4) + 1);
+    setVideoId(Math.floor(Math.random() * 4) + 1);
     setIsPlaying(true);
   };
 
 
   useEffect(() => {
-    if (isPlaying && videoRef.current) {
-      videoRef.current.load()
-      videoRef.current.play();
+    if (videoRef.current) {
+      videoRef.current.load(); // Load the new video source
+      if (isPlaying) {
+        videoRef.current.play(); // Play the video if isPlaying is true
+      }
     }
-  }, [video]);
+  }, [videoId, isPlaying]);
 
   const handleVideoEnd = () => {
     setIsPlaying(false);
+    console.log('videoId in WheelContainer is ->', videoId);
+    // onVideoEnd(videoId)
+    if (videoId === 1) {
+      console.log('balance is flat');
+      setBalance(balance);
+    } else if (videoId === 2) {
+      const bl = balance * 2
+      console.log('balance is doubled');
+      setBalance(bl);
+      console.log(balance);
+    } else if (videoId === 3) {
+      console.log('ticket is added');
+      const tk = ticket + 1;
+      setTicket(tk);
+    } else if (videoId === 4) {
+      console.log('balance is lost');
+      const bl = 0
+      console.log(balance);
+      setBalance(bl);
+    } else {
+      console.log(balance);
+      setBalance(balance)
+      console.log(balance);
+    }
   };
 
   return (
@@ -37,14 +59,19 @@ const WheelContainer: React.FC = ({children}: any) => {
         onEnded={handleVideoEnd}
         loop={false}
         controls={false}
-        muted
+        muted={true}
         playsInline
         className="md:absolute w-full h-full object-cover"
       >
-        <source src={`videos/S_W_Situation_Videos_Wood_Wheel_14_Spaces-${video}.mp4`} type="video/mp4"/>
-        {children}
+        {videoId === 1 && <source src={`videos/S_W_Situation_Videos_Wood_Wheel_14_Spaces-1.mp4`} type="video/mp4"/>}
+        {videoId === 2 && <source src={`videos/S_W_Situation_Videos_Wood_Wheel_14_Spaces-2.mp4`} type="video/mp4"/>}
+        {videoId === 3 && <source src={`videos/S_W_Situation_Videos_Wood_Wheel_14_Spaces-3.mp4`} type="video/mp4"/>}
+        {videoId === 4 && <source src={`videos/S_W_Situation_Videos_Wood_Wheel_14_Spaces-4.mp4`} type="video/mp4"/>}
       </video>
-
+      <div className="font-bold text-xl z-20 absolute top-0 left-0 flex flex-col">
+        <span>Balance: ${balance.toFixed(2)}</span>
+        <span>Tickets: {ticket}</span>
+      </div>
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
         {!isPlaying && (
           <img
@@ -56,7 +83,7 @@ const WheelContainer: React.FC = ({children}: any) => {
         )}
       </div>
     </div>
-  );
+);
 };
 
 export default WheelContainer;
