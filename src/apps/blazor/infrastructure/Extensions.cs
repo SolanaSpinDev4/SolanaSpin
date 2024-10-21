@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 namespace SolanaSpin.Blazor.Infrastructure;
 public static class Extensions
 {
-    private const string ClientName = "FullStackHero.API";
+    private const string ClientName = "SolanaSpin.API";
     public static IServiceCollection AddClientServices(this IServiceCollection services, IConfiguration config, IWebAssemblyHostEnvironment hostEnvironment)
     {
         services.AddMudServices(configuration =>

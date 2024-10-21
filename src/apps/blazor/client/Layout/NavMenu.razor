@@ -1,26 +1,25 @@
 ﻿<PersonCard Style="background-color: var(--mud-palette-drawer-background);color: var(--mud-palette-drawer-text); margin-bottom:0px!important" />
 <MudNavMenu>
-    <MudText Typo="Typo.subtitle2" Color="Color.Surface" Class="ml-4 my-3">Start</MudText>
-    <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
-    <MudNavLink Href="counter" Match="NavLinkMatch.Prefix" Icon="@Icons.Material.Filled.Add">Counter</MudNavLink>
+    <MudText Typo="Typo.subtitle2" Color="Color.Surface" Class="ml-4 my-3">Home</MudText>
+    <MudNavLink Href="/admin/dashboard" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Dashboard">Dashboard</MudNavLink>
     <MudText Typo="Typo.subtitle2" Color="Color.Surface" Class="ml-4 my-3">Playground</MudText>
-    <MudNavLink Href="/wheels" Icon="@Icons.Material.Filled.Casino" Class="fsh-nav-child">Wheels</MudNavLink>
-    <MudNavLink Href="/jackpots" Icon="@Icons.Material.Filled.Celebration" Class="fsh-nav-child">Jackpots</MudNavLink>
-    <MudNavLink Href="/raffle" Icon="@Icons.Material.Filled.LocalActivity" Class="fsh-nav-child">Raffle</MudNavLink>
+    <MudNavLink Href="/admin/wheels" Icon="@Icons.Material.Filled.Casino" Class="fsh-nav-child">Wheels</MudNavLink>
+    <MudNavLink Href="/admin/jackpots" Icon="@Icons.Material.Filled.Celebration" Class="fsh-nav-child">Jackpots</MudNavLink>
+    <MudNavLink Href="/admin/raffle" Icon="@Icons.Material.Filled.LocalActivity" Class="fsh-nav-child">Raffle</MudNavLink>
     @if (CanViewAdministrationGroup)
     {
         <MudText Typo="Typo.subtitle2" Color="Color.Surface" Class="ml-4 my-3">Administration</MudText>
         @if (_canViewUsers)
         {
-            <MudNavLink Match="NavLinkMatch.Prefix" Href="/identity/users" Icon="@Icons.Material.Filled.PeopleAlt">Users</MudNavLink>
+            <MudNavLink Match="NavLinkMatch.Prefix" Href="/admin/users" Icon="@Icons.Material.Filled.PeopleAlt">Users</MudNavLink>
         }
         @if (_canViewRoles)
         {
-            <MudNavLink Href="/identity/roles" Icon="@Icons.Material.Filled.EmojiPeople">Roles</MudNavLink>
+            <MudNavLink Href="/admin/roles" Icon="@Icons.Material.Filled.EmojiPeople">Roles</MudNavLink>
         }
         @if (_canViewTenants)
         {
-            <MudNavLink Href="/tenants" Icon="@Icons.Material.Filled.GroupWork" Disabled="!_canViewTenants">Tenants</MudNavLink>
+            <MudNavLink Href="/admin/tenants" Icon="@Icons.Material.Filled.GroupWork" Disabled="!_canViewTenants">Tenants</MudNavLink>
         }
     }
 </MudNavMenu>

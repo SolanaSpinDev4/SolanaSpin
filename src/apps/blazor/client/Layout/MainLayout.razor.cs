@@ -47,9 +47,4 @@ public partial class MainLayout
         var options = new DialogOptions { CloseButton = true, MaxWidth = MaxWidth.Small, FullWidth = true };
         DialogService.Show<Components.Dialogs.Logout>("Logout", parameters, options);
     }
-
-    private void Profile()
-    {
-        Navigation.NavigateTo("/identity/account");
-    }
 }

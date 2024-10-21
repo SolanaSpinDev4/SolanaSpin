@@ -69,7 +69,7 @@ public partial class UserRoles
                 Toast,
                 successMessage: "updated user roles");
 
-        Navigation.NavigateTo("/identity/users");
+        Navigation.NavigateTo("/admin/users");
     }
 
     private bool Search(UserRoleDetail userRole) =>

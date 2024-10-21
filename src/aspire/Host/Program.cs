@@ -13,11 +13,11 @@ var webapi = builder.AddProject<Projects.Server>("webapi");
 
 _ = builder.AddProject<Projects.Client>("blazor");
 
-builder.AddNpmApp("nextjs", "../../apps/nextjs", scriptName: "dev")
-    .WithReference(webapi)
-    .WithHttpEndpoint(env: "PORT", port: 5200)
-    .WithExternalHttpEndpoints()
-    .PublishAsDockerFile();
+_ = builder.AddNpmApp("nextjs", "../../apps/nextjs", scriptName: "dev")
+           .WithReference(webapi)
+           .WithHttpEndpoint(env: "PORT", port: 5200)
+           .WithExternalHttpEndpoints()
+           .PublishAsDockerFile();
 
 using var app = builder.Build();
 

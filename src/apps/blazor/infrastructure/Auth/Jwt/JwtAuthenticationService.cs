@@ -82,7 +82,7 @@ public sealed class JwtAuthenticationService : AuthenticationStateProvider, IAut
 
         NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
 
-        _navigation.NavigateTo("/login");
+        _navigation.NavigateTo("/admin/login");
     }
 
     public void NavigateToExternalLogin(string returnUrl)
@@ -111,7 +111,7 @@ public sealed class JwtAuthenticationService : AuthenticationStateProvider, IAut
             var authState = await GetAuthenticationStateAsync();
             if (authState.User.Identity?.IsAuthenticated is not true)
             {
-                return new AccessTokenResult(AccessTokenResultStatus.RequiresRedirect, new(), "/login", default);
+                return new AccessTokenResult(AccessTokenResultStatus.RequiresRedirect, new(), "/admin/login", default);
             }
 
             string? token = await GetCachedAuthTokenAsync();
@@ -121,12 +121,12 @@ public sealed class JwtAuthenticationService : AuthenticationStateProvider, IAut
             var diff = expTime - DateTime.UtcNow;
             if (diff.TotalMinutes <= 1)
             {
-                //return new AccessTokenResult(AccessTokenResultStatus.RequiresRedirect, new(), "/login", default);
+                //return new AccessTokenResult(AccessTokenResultStatus.RequiresRedirect, new(), "/admin/login", default);
                 string? refreshToken = await GetCachedRefreshTokenAsync();
                 (bool succeeded, var response) = await TryRefreshTokenAsync(new RefreshTokenCommand { Token = token, RefreshToken = refreshToken });
                 if (!succeeded)
                 {
-                    return new AccessTokenResult(AccessTokenResultStatus.RequiresRedirect, new(), "/login", default);
+                    return new AccessTokenResult(AccessTokenResultStatus.RequiresRedirect, new(), "/admin/login", default);
                 }
 
                 token = response?.Token;

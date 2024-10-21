@@ -17,7 +17,7 @@ public partial class Login()
     public bool BusySubmitting { get; set; }
 
     private readonly TokenGenerationCommand _tokenRequest = new();
-    private string TenantId { get; set; } = string.Empty;
+    private string TenantId { get; set; } = "root";
     private bool _passwordVisibility;
     private InputType _passwordInput = InputType.Password;
     private string _passwordInputIcon = Icons.Material.Filled.VisibilityOff;
@@ -27,7 +27,7 @@ public partial class Login()
         var authState = await AuthState;
         if (authState.User.Identity?.IsAuthenticated is true)
         {
-            Navigation.NavigateTo("/");
+            Navigation.NavigateTo("/admin/dashboard");
         }
     }
 

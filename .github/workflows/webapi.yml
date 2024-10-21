@@ -52,5 +52,5 @@ jobs:
       - name: publish to github container registry
         working-directory: ./src/api/server/
         run: |
-          dotnet publish -c Release -p:ContainerRepository=ghcr.io/solanaspindev/webapi -p:RuntimeIdentifier=linux-x64
+          dotnet publish -c Release -p:ContainerRepository=ghcr.io/solanaspindev/webapi -p:ContainerImageTags=stable -p:RuntimeIdentifier=linux-x64
           docker push ghcr.io/solanaspindev/webapi --all-tags

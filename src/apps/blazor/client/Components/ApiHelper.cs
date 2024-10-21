@@ -29,7 +29,7 @@ public static class ApiHelper
         {
             if (ex.StatusCode == 401)
             {
-                navigationManager.NavigateTo("/logout");
+                navigationManager.NavigateTo("/admin/logout");
             }
             var message = ex.Message switch
             {

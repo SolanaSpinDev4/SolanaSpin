@@ -33,7 +33,7 @@ public partial class SelfRegister
         if (response != null)
         {
             Toast.Add($"user {response.UserId} registered.", Severity.Success);
-            Navigation.NavigateTo("/login");
+            Navigation.NavigateTo("/admin/login");
         }
 
         BusySubmitting = false;

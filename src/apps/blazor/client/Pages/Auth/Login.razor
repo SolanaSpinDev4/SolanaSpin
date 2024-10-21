@@ -1,4 +1,4 @@
-﻿@page "/login"
+﻿@page "/admin/login"
 @attribute [AllowAnonymous]
 @inject IAuthenticationService authService
 
@@ -30,10 +30,10 @@
          </MudItem>
 
          <MudItem xs="12" md="6">
-             <MudButton StartIcon="@Icons.Material.Filled.AppRegistration" Href="/register">Register?</MudButton>
+             <MudButton StartIcon="@Icons.Material.Filled.AppRegistration" Href="/admin/register">Register?</MudButton>
             </MudItem>
             <MudItem xs="12" md="6">
-             <MudButton StartIcon="@Icons.Material.Filled.LockReset" Href="/forgot-password">Forgot password?</MudButton>
+             <MudButton StartIcon="@Icons.Material.Filled.LockReset" Href="admin/forgot-password">Forgot password?</MudButton>
             </MudItem>
             <MudItem xs="12" Class="d-flex justify-center">
                 <MudButton ButtonType="ButtonType.Submit" Disabled="BusySubmitting" Variant="Variant.Filled"

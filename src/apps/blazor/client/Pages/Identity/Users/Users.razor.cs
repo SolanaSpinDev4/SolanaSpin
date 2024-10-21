@@ -70,10 +70,10 @@ public partial class Users
     }
 
     private void ViewProfile(in Guid userId) =>
-        Navigation.NavigateTo($"/identity/users/{userId}/profile");
+        Navigation.NavigateTo($"/admin/users/{userId}/profile");
 
     private void ManageRoles(in Guid userId) =>
-        Navigation.NavigateTo($"/identity/users/{userId}/roles");
+        Navigation.NavigateTo($"/admin/users/{userId}/roles");
 
     private void TogglePasswordVisibility()
     {

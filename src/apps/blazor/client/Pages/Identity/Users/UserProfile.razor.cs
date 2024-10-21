@@ -39,7 +39,7 @@ public partial class UserProfile
     {
         var request = new ToggleUserStatusCommand { ActivateUser = _active, UserId = Id };
         await ApiHelper.ExecuteCallGuardedAsync(() => UsersClient.ToggleUserStatusEndpointAsync(Id!, request), Toast);
-        Navigation.NavigateTo("/identity/users");
+        Navigation.NavigateTo("/admin/users");
     }
 
     [Parameter]

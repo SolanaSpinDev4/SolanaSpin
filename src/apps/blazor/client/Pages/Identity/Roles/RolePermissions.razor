@@ -1,4 +1,4 @@
-﻿@page "/identity/roles/{Id}/permissions"
+﻿@page "/admin/roles/{Id}/permissions"
 
 <PageHeader Title="@_title" Header="@_title" SubHeader="@_description" />
 
@@ -18,7 +18,7 @@ else
                 <MudTable Hover="true" Dense="false" Outlined Items="@allRoleClaimsInGroup" Style="margin-bottom:0px!important" Filter="new Func<PermissionViewModel, bool>(Search)">
                     <ToolBarContent>
                         <div class="justify-center mud-text-align-center">
-                            <MudButton Variant="Variant.Filled" DropShadow="false" Color="Color.Info" Class="ml-auto" StartIcon="@Icons.Material.Filled.ArrowBack" Href="/identity/roles">
+                            <MudButton Variant="Variant.Filled" DropShadow="false" Color="Color.Info" Class="ml-auto" StartIcon="@Icons.Material.Filled.ArrowBack" Href="/admin/roles">
                                 Back
                             </MudButton>
                             @if (_canEditRoleClaims)

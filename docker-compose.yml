@@ -130,7 +130,7 @@ services:
     ports:
       - 5100:5100
     depends_on:
-      - webapi-dev
+      - webapi_dev
     restart: unless-stopped
 
   nextjs:
@@ -149,8 +149,8 @@ services:
     restart: unless-stopped
 
   nextjs_dev:
-    container_name: blazor_dev
-    image: ${BLAZOR_DEV_IMAGE}
+    container_name: nextjs_dev
+    image: ${NEXTJS_DEV_IMAGE}
     pull_policy: always
     environment:
       API_BASE_URL: ${GAME_DEV_URL}
@@ -160,7 +160,7 @@ services:
     ports:
       - 5200:5200
     depends_on:
-      - webapi
+      - webapi_dev
     restart: unless-stopped
 
   nginx:

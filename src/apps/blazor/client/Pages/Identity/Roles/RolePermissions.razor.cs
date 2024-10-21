@@ -90,7 +90,7 @@ public partial class RolePermissions
                 () => RolesClient.UpdateRolePermissionsEndpointAsync(request.RoleId, request),
                 Toast,
                 successMessage: "Updated Permissions.");
-        Navigation.NavigateTo("/identity/roles");
+        Navigation.NavigateTo("/admin/roles");
     }
 
     private bool Search(PermissionViewModel permission) =>

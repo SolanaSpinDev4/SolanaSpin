@@ -25,7 +25,7 @@ public class JwtAuthenticationHeaderHandler : DelegatingHandler
             }
             else
             {
-                _navigation.NavigateTo("/login");
+                _navigation.NavigateTo("/admin/login");
             }
         }
 
