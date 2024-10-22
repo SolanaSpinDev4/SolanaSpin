@@ -1,5 +1,7 @@
 import React from 'react';
 import {useState, useRef, useEffect} from 'react';
+import {Loading} from "@/app/components/Loading";
+import Image from "next/image";
 
 
 const videoSources = [
@@ -15,6 +17,7 @@ const WheelContainer: React.FC = ({}) => {
   const [videoId, setVideoId] = useState(1);
   const [balance, setBalance] = useState(10000);
   const [ticket, setTicket] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
   const [videoBlobs, setVideoBlobs] = useState([]); // Store video blob URLs
 
   const handlePlayVideo = () => {
@@ -27,6 +30,7 @@ const WheelContainer: React.FC = ({}) => {
   // Preload videos into blobs
   useEffect(() => {
     const fetchVideos = async () => {
+      setIsLoading(true);
       const blobs = await Promise.all(
         videoSources.map(async (src) => {
           const response = await fetch(src);
@@ -34,7 +38,8 @@ const WheelContainer: React.FC = ({}) => {
           return URL.createObjectURL(blob); // Convert to blob URL
         })
       );
-      setVideoBlobs(blobs); // Store blob URLs in state
+      setVideoBlobs(blobs);// Store blob URLs in state
+      setIsLoading(false);
     };
 
     fetchVideos().then(r => r);
@@ -42,7 +47,7 @@ const WheelContainer: React.FC = ({}) => {
 
   useEffect(() => {
     if (videoRef.current && isPlaying) {
-      videoRef.current.play(); // Play the video if isPlaying is true
+      videoRef.current.play();
     }
   }, [videoId, isPlaying]);
   const handleVideoEnd = () => {
@@ -60,7 +65,8 @@ const WheelContainer: React.FC = ({}) => {
 
   return (
     <div className="md:absolute top-0 left-0 w-full md:h-full overflow-hidden -z-1 video-container">
-      {videoBlobs.length > 0 && (
+      {isLoading ? <div className="absolute top-1/2 left-1/2 -translate-y-2/4	-translate-x-2/4"><Loading/>
+      </div> : videoBlobs.length > 0 && (
         <video
           ref={videoRef}
           onEnded={handleVideoEnd}
@@ -78,12 +84,14 @@ const WheelContainer: React.FC = ({}) => {
         <span>Tickets: {ticket}</span>
       </div>
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-        {!isPlaying && (
-          <img
+        {!isPlaying && !isLoading && (
+          <Image
             src="/images/blue/button.png"
             alt="Centered Image"
             onClick={handlePlayVideo}
             className="w-[200px] h-auto"
+            width={200}
+            height={200}
           />
         )}
       </div>
