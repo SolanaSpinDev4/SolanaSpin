@@ -50,7 +50,7 @@ const videoSources = [
 ];
 const wheelPositions = 14;
 
-function getRandomNumber(min, max) {
+function getRandomNumber(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
@@ -88,32 +88,18 @@ const WheelContainer: React.FC = () => {
   }, [videoId, isPlaying]);
 
   const handlePlayVideo = () => {
+
+    //todo remove the balance
     setBalance(balance + 1);
     if (firstSpin) {
-      console.log('first spin XXXXX')
       setVideoId(1);
       setIsPlaying(true);
 
       return;
     }
-    if (videoId > 2 * wheelPositions) {
-      console.log('video id should be section3 if returns after a result, means no first spin, YYYYY ', videoId);
-      setVideoId(videoId - 2 * wheelPositions);
-      setIsPlaying(true);
-    } else {
-      console.log('we never get here')
-      alert('abracadabra')
-      console.log('ZZZZZ')
-      const newVideoId = getRandomNumber(15, 28);
-      // Stop the currently playing video (if any)
-      if (videoRefs.current[videoId - 1]) {
-        videoRefs.current[videoId - 1].pause();
-        videoRefs.current[videoId - 1].currentTime = 0;
-      }
-
-      setVideoId(newVideoId);
-      setIsPlaying(true);
-    }
+    // we reach here only when a video from result category has been played - videoId > 2 * wheelPositions
+    setVideoId(videoId - 2 * wheelPositions);
+    setIsPlaying(true);
   };
 
 
@@ -121,48 +107,26 @@ const WheelContainer: React.FC = () => {
     // The video naturally stays on the last frame when ended, no action needed.
     setIsPlaying(false);
 
-    console.log("Video ended, stays at the last frame:", videoId);
+    if (videoRefs.current[videoId - 1]) {
+      videoRefs.current[videoId - 1].pause();
+      videoRefs.current[videoId - 1].currentTime = 0;
+    }
+
     if (videoId > wheelPositions && videoId < wheelPositions * 2 + 1) {
-      console.log('suntem in sectiunea 14-28 si dupa ce se termina aceasta trebuie sa facem play la result')
-      playResultVideo();
+
+      //play a result video
+      setVideoId(videoId + wheelPositions);
+      setIsPlaying(true);
     } else if (videoId < wheelPositions + 1) {
       if (firstSpin) {
         setFirstSpin(false);
       }
-      console.log('s-a terminat un start video asa ca trebuie sa pornim un stop video')
-      playStopVideo();
-    } else if (videoId > wheelPositions * 2) {
-      console.log('trebuie sa mai generam un nou numar random si sa facem play la un video din sectiunea 1-14')
-      // handlePlayVideo();
+
+      //play a stop video
+      setVideoId(getRandomNumber(wheelPositions + 1, wheelPositions * 2));
+      setIsPlaying(true);
     }
   };
-
-
-  const playStopVideo = () => {
-    console.log('here we play the stop  video');
-    console.log('previous videoId is, ', videoId);
-    if (videoRefs.current[videoId - 1]) {
-      videoRefs.current[videoId - 1].pause();
-      videoRefs.current[videoId - 1].currentTime = 0;
-    }
-
-    setVideoId(getRandomNumber(15, 28));
-    console.log('newVideoId is in playStopVideo ', videoId)
-    setIsPlaying(true);
-  }
-
-  const playResultVideo = () => {
-    console.log('here we play the result effect video');
-    console.log('previous videoId is, ', videoId);
-    if (videoRefs.current[videoId - 1]) {
-      videoRefs.current[videoId - 1].pause();
-      videoRefs.current[videoId - 1].currentTime = 0;
-    }
-
-    setVideoId(videoId + wheelPositions);
-    console.log('newVideoId is ', videoId)
-    setIsPlaying(true);
-  }
 
   return (
     <div className="md:absolute top-0 left-0 w-full md:h-full overflow-hidden -z-1 video-container">
