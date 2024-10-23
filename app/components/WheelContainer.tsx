@@ -1,6 +1,7 @@
 import React from 'react';
 import {useState, useRef, useEffect} from 'react';
 import {Loading} from "@/app/components/Loading";
+import {Jackpot} from "@/app/components/Jackpot";
 import Image from "next/image";
 
 
@@ -19,7 +20,6 @@ const WheelContainer: React.FC = ({}) => {
   const [ticket, setTicket] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [videoBlobs, setVideoBlobs] = useState([]); // Store video blob URLs
-
   const handlePlayVideo = () => {
     // Set the new video number, but do NOT play the video immediately
     setVideoId(Math.floor(Math.random() * 4) + 1);
@@ -50,17 +50,18 @@ const WheelContainer: React.FC = ({}) => {
       videoRef.current.play();
     }
   }, [videoId, isPlaying]);
+
   const handleVideoEnd = () => {
     setIsPlaying(false);
-    if (videoId === 1) {
-      setBalance(balance); // Flat balance
-    } else if (videoId === 2) {
-      setBalance(balance * 2); // Double balance
-    } else if (videoId === 3) {
-      setTicket(ticket + 1); // Add a ticket
-    } else if (videoId === 4) {
-      setBalance(0); // Lose balance
-    }
+    // if (videoId === 1) {
+    //   setBalance(balance); // Flat balance
+    // } else if (videoId === 2) {
+    //   setBalance(balance * 2); // Double balance
+    // } else if (videoId === 3) {
+    //   setTicket(ticket + 1); // Add a ticket
+    // } else if (videoId === 4) {
+    //   setBalance(0); // Lose balance
+    // }
   };
 
   return (
@@ -83,6 +84,7 @@ const WheelContainer: React.FC = ({}) => {
         <span>Balance: ${balance.toFixed(2)}</span>
         <span>Tickets: {ticket}</span>
       </div>
+      <Jackpot/>
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
         {!isPlaying && !isLoading && (
           <Image
