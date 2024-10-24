@@ -14,6 +14,16 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      keyframes: {
+        spinSlowFastSlow: {
+          '0%': { transform: 'rotate(0deg)', animationTimingFunction: 'ease-in' },
+          '50%': { transform: 'rotate(1000deg)', animationTimingFunction: 'linear' },
+          '100%': { transform: 'rotate(2000deg)', animationTimingFunction: 'ease-out' },
+        },
+      },
+      animation: {
+        spinSlowFastSlow: 'spinSlowFastSlow 5s infinite',
+      },
       height: {
         'screen-minus-80': 'calc(100vh - 80px)',
       },
