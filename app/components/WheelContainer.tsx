@@ -54,6 +54,39 @@ function getRandomNumber(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+function showVideoPrize(videoId: number, wheelPositions: number): void {
+  switch (videoId) {
+    case wheelPositions * 2 + 1:
+      console.log('we should award a gift');
+      break;
+    case wheelPositions * 2 + 2:
+    case wheelPositions * 2 + 3:
+    case wheelPositions * 2 + 4:
+      console.log('All is lost');
+      break;
+    case wheelPositions * 2 + 5:
+      console.log('We should award a ticket');
+      break;
+    case wheelPositions * 2 + 6:
+    case wheelPositions * 2 + 7:
+    case wheelPositions * 2 + 8:
+    case wheelPositions * 2 + 9:
+      console.log('We should provide an X1 award');
+      break;
+    case wheelPositions * 2 + 10:
+    case wheelPositions * 2 + 11:
+    case wheelPositions * 2 + 12:
+      console.log('We should provide an X2 award');
+      break;
+    case wheelPositions * 2 + 13:
+    case wheelPositions * 2 + 14:
+      console.log('We should provide an X5 award');
+      break;
+    default:
+      console.log('No wheel, we shouldn\'t get here');
+  }
+}
+
 const WheelContainer: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const videoRefs = useRef([]); // Array of references for video elements
@@ -64,7 +97,7 @@ const WheelContainer: React.FC = () => {
   const [firstSpin, setFirstSpin] = useState(true);
 
   // Preload videos into blob URLs
-  useEffect(() => {
+  useEffect((): void => {
     const fetchVideos = async () => {
       setIsLoading(true);
       const blobs = await Promise.all(
@@ -78,16 +111,16 @@ const WheelContainer: React.FC = () => {
       setIsLoading(false);
     };
 
-    fetchVideos();
+    fetchVideos().then(r => r);
   }, []);
-  useEffect(() => {
+  useEffect((): void => {
     if (isPlaying && videoRefs.current[videoId - 1]) {
       // Play the new video
       videoRefs.current[videoId - 1].play();
     }
   }, [videoId, isPlaying]);
 
-  const handlePlayVideo = () => {
+  const handlePlayVideo = (): void => {
 
     //todo remove the balance
     setBalance(balance + 1);
@@ -98,12 +131,13 @@ const WheelContainer: React.FC = () => {
       return;
     }
     // we reach here only when a video from result category has been played - videoId > 2 * wheelPositions
+
     setVideoId(videoId - 2 * wheelPositions);
     setIsPlaying(true);
   };
 
 
-  const handleVideoEnd = () => {
+  const handleVideoEnd = (): void => {
     // The video naturally stays on the last frame when ended, no action needed.
     setIsPlaying(false);
 
@@ -113,10 +147,14 @@ const WheelContainer: React.FC = () => {
     }
 
     if (videoId > wheelPositions && videoId < wheelPositions * 2 + 1) {
+      const newVideoId = videoId + wheelPositions;
 
       //play a result video
-      setVideoId(videoId + wheelPositions);
+      setVideoId(newVideoId);
       setIsPlaying(true);
+
+      console.log('update bet - videoId is , ', videoId);
+      showVideoPrize(newVideoId, wheelPositions);
     } else if (videoId < wheelPositions + 1) {
       if (firstSpin) {
         setFirstSpin(false);
@@ -160,14 +198,15 @@ const WheelContainer: React.FC = () => {
       <Jackpot/>
       <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
         {!isPlaying && !isLoading && (
-          <Image
-            src="/images/blue/button.png"
-            alt="Centered Image"
-            onClick={handlePlayVideo}
-            className="w-[200px] h-auto"
-            width={200}
-            height={200}
-          />
+          <div className="w-[140px] h-[140px] rounded-full" onClick={handlePlayVideo}></div>
+          // <Image
+          //   src="/images/blue/button.png"
+          //   alt="Centered Image"
+          //   onClick={handlePlayVideo}
+          //   className="w-[200px] h-auto"
+          //   width={200}
+          //   height={200}
+          // />
         )}
       </div>
     </div>
