@@ -77,9 +77,7 @@ const WheelContainer: React.FC = () => {
       setVideoId(newVideoId);
       setIsPlaying(true);
 
-      console.log('update bet - videoId is , ', videoId);
       const prizeNumber = computePrize(newVideoId, wheelPositions, activeBet);
-      console.log('prizeNumber ', prizeNumber);
       if (prizeNumber === 1) {
         setTicket(ticket + prizeNumber);
       } else {
@@ -167,7 +165,7 @@ const WheelContainer: React.FC = () => {
               </div>
             </div>
             <div className="font-bold text-2xl text-yellow-300">Balance: $ {formatCurrency(balance)}</div>
-            <div>Tickets: {ticket}</div>
+            <div className="font-bold text-2xl text-green-800">Tickets: {ticket}</div>
           </div>
         </div>
         <div className="flex flex-col items-center justify-center z-20">
