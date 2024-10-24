@@ -12,7 +12,7 @@ export const Jackpot = () => {
   }, []);
 
   return (
-    <div className="z-20 absolute left-0 top-1/2 	-translate-y-2/4 flex flex-col items-center">
+    <div className="flex flex-col items-center">
       <Image src="/images/jackpot3.png"
              alt="Centered Image"
              className="max-w-[300px] h-auto"
