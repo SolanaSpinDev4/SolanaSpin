@@ -9,37 +9,40 @@ export const getRandomNumber = (min: number, max: number): number => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-export const computePrize = (videoId: number, wheelPositions: number, activeBet: number): number => {
+export const computePrize = (videoId: number, wheelPositions: number, activeBet: number): {
+  prize: number,
+  outcome: string
+} => {
   switch (videoId) {
     case wheelPositions * 2 + 1:
       console.log('we should award a gift - agree on a gift === x6');
-      return activeBet * 6;
+      return {prize: activeBet * 6, outcome: 'gift'};
     case wheelPositions * 2 + 2:
     case wheelPositions * 2 + 3:
     case wheelPositions * 2 + 4:
       console.log('All is lost');
-      return -activeBet;
+      return {prize: -activeBet, outcome: 'no win'};
     case wheelPositions * 2 + 5:
       console.log('We should award a ticket, 100 will be a ticket');
-      return 1;
+      return {prize: 1, outcome: 'ticket'};
     case wheelPositions * 2 + 6:
     case wheelPositions * 2 + 7:
     case wheelPositions * 2 + 8:
     case wheelPositions * 2 + 9:
       console.log('We should provide an X1 award');
-      return activeBet;
+      return {prize: activeBet, outcome: 'X1'};
     case wheelPositions * 2 + 10:
     case wheelPositions * 2 + 11:
     case wheelPositions * 2 + 12:
       console.log('We should provide an X2 award');
-      return activeBet * 2;
+      return {prize: activeBet * 2, outcome: 'X2'};
     case wheelPositions * 2 + 13:
     case wheelPositions * 2 + 14:
       console.log('We should provide an X5 award');
-      return activeBet * 5;
+      return {prize: activeBet * 5, outcome: 'X5'};
     default:
       console.log('No wheel, we shouldn\'t get here');
-      return 0;
+      return {prize: 0, outcome: ''};
   }
 }
 export const formatCurrency = (number: number) => {
@@ -49,6 +52,7 @@ export const formatCurrency = (number: number) => {
     minimumFractionDigits: 0, // Ensures two decimal places
   }).format(number);
 };
+
 export const videoSources = [
   "/videos/start/S_W_Separate_Wood_Start_Gift_Box.mp4",
   "/videos/start/S_W_Separate_Wood_Start_No_Win_A.mp4",

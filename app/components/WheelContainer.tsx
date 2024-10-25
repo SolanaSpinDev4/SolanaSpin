@@ -12,6 +12,8 @@ import {
 } from "@/lib/utils";
 import Image from 'next/image';
 import clsx from "clsx";
+import RecentPlays from "@/app/components/RecentPlays";
+
 
 const WheelContainer: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -23,6 +25,8 @@ const WheelContainer: React.FC = () => {
   const [videoBlobs, setVideoBlobs] = useState([]); // Store preloaded video blob URLs
   const [firstSpin, setFirstSpin] = useState(true);
   const [activeBet, setActiveBet] = useState(0);
+  const [recentPlays, setRecentPlays] = useState<Play[]>([]);
+
   // Preload videos into blob URLs
   useEffect((): void => {
     const fetchVideos = async () => {
@@ -77,11 +81,17 @@ const WheelContainer: React.FC = () => {
       setVideoId(newVideoId);
       setIsPlaying(true);
 
-      const prizeNumber = computePrize(newVideoId, wheelPositions, activeBet);
-      if (prizeNumber === 1) {
-        setTicket(ticket + prizeNumber);
+      const {prize, outcome} = computePrize(newVideoId, wheelPositions, activeBet);
+      const lastPlay = {name: "Anonymous", time: new Date(), outcome, prize};
+      const plays = [...recentPlays, lastPlay]
+      console.log('prize');
+      console.log(prize);
+      setRecentPlays(plays);
+
+      if (prize === 1) {
+        setTicket(ticket + prize);
       } else {
-        setBalance(balance + prizeNumber);
+        setBalance(balance + prize);
       }
     } else if (videoId < wheelPositions + 1) {
       if (firstSpin) {
@@ -168,9 +178,7 @@ const WheelContainer: React.FC = () => {
             <div className="font-bold text-2xl text-green-800">Tickets: {ticket}</div>
           </div>
         </div>
-        <div className="flex flex-col items-center justify-center z-20">
-          table
-        </div>
+        <RecentPlays plays={recentPlays}/>
       </div>
 
 
