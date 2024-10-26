@@ -135,39 +135,3 @@ h1 {
 .p-24 {
   padding: 1rem;
 }
-
-.progress-container {
-  width: 200px;
-  height: 18px;
-  background-color: #f3f3f3;
-  border-radius: 5px;
-  overflow: hidden;
-  position: relative;
-}
-
-.progress-bar {
-  height: 100%;
-  background-image: linear-gradient(
-    135deg,
-    #73250f 25%,
-    #ae462b 25%,
-    #ae462b 50%,
-    #73250f 50%,
-    #73250f 75%,
-    #ae462b 75%
-  );
-  background-size: 30px 30px;
-  animation: progress-barber-shop 1s linear infinite;
-  width: 0%; /* Set this dynamically based on progress value */
-  transition: width 1s ease;
-}
-
-/* Animation keyframes for the moving stripes */
-@keyframes progress-barber-shop {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 30px 0;
-  }
-}
