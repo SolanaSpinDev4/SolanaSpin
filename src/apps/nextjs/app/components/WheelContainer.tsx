@@ -10,11 +10,8 @@ import {
   videoSources,
   wheelPositions
 } from "@/lib/utils";
-import Image from 'next/image';
 import clsx from "clsx";
 import RecentPlays from "@/app/components/RecentPlays";
-import Tooltip from "@/app/components/Tooltip";
-import {NauSea} from '@/app/fonts/fonts';
 import {LogoTitle} from "@/app/components/LogoTitle";
 import {Socials} from "@/app/components/Socials";
 
