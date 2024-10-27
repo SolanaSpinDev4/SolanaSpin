@@ -11,7 +11,6 @@ export const LogoTitle = () => {
           src="/images/logo.svg"
           alt="Responsive Logo"
           className="max-w-[80px] lg:max-w-[200px] w-full h-auto"
-          layout="responsive"
           width={200}
           height={200}
         />
