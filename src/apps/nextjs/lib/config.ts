@@ -5,13 +5,11 @@ import {sepolia, bscTestnet, blastSepolia} from 'wagmi/chains'
 import {Chain, getDefaultConfig} from '@rainbow-me/rainbowkit'
 
 const projectId: string | undefined = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID;
-if (!projectId) {
-    throw new Error("NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID is not defined");
-}
 const supportedChains: Chain[] = [sepolia, bscTestnet, blastSepolia];
 
 export const config = getDefaultConfig({
     appName: 'WalletConnection',
+    // @ts-expect-error blocks the ui
     projectId,
     chains: supportedChains as never,
     ssr: true,
