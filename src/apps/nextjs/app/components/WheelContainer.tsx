@@ -121,7 +121,9 @@ const WheelContainer: React.FC = () => {
         videoBlobs.map((videoBlob, index) => (
           <video
             key={index}
-            ref={(el) => (videoRefs.current[index] = el)}
+            ref={(el) => {
+                videoRefs.current[index] = el
+            }}
             onEnded={handleVideoEnd}
             loop={false}
             controls={false}
