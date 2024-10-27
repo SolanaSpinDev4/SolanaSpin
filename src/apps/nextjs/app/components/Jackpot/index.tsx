@@ -26,7 +26,6 @@ export const Jackpot = () => {
             <Image src="/images/jackpot.png"
                    alt="Centered Image"
                    className="max-w-[130px] lg:max-w-[300px] h-auto"
-                   layout="responsive"
                    width={1024}
                    height={1024}/>
             <div className="progress-container flex flex-col w-[130px] lg:w-[200px] h-[12px] lg:h-[18px] bg-gray-300 rounded relative overflow-hidden">

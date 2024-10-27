@@ -6,31 +6,32 @@ import Image from "next/image";
 import {LogoTitle} from "@/app/components/LogoTitle";
 
 export const MobileMessageWheelWrapper = () => {
-    const [isPortrait, setIsPortrait] = useState(window.matchMedia("(orientation: portrait)").matches);
-    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768); // Adjust the width as needed for mobile detection
-
+    const [isPortrait, setIsPortrait] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);  
 
     useEffect(() => {
         if (typeof window !== "undefined") {
-            const mediaQuery = window.matchMedia("(orientation: portrait)");
-
-            const handleOrientationChange = (e) => {
-                setIsPortrait(e.matches);
-            };
-
-            const handleResize = () => {
+            const updateMedia = () => {
+                setIsPortrait(window.matchMedia("(orientation: portrait)").matches);
                 setIsMobile(window.innerWidth <= 768);
             };
 
-            mediaQuery.addEventListener("change", handleOrientationChange);
-            window.addEventListener("resize", handleResize);
+            // Initial check
+            updateMedia();
 
+            // Set up event listeners
+            const mediaQuery = window.matchMedia("(orientation: portrait)");
+            mediaQuery.addEventListener("change", (e) => setIsPortrait(e.matches));
+            window.addEventListener("resize", updateMedia);
+
+            // Clean up event listeners on component unmount
             return () => {
-                mediaQuery.removeEventListener("change", handleOrientationChange);
-                window.removeEventListener("resize", handleResize);
+                mediaQuery.removeEventListener("change", (e) => setIsPortrait(e.matches));
+                window.removeEventListener("resize", updateMedia);
             };
         }
     }, []);
+
 
     return (<div>
         {isPortrait && isMobile ? (
