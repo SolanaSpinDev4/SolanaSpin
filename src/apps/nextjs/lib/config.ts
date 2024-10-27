@@ -1,20 +1,22 @@
 'use client';
 
-import { http, createStorage, cookieStorage } from 'wagmi'
-import { sepolia, bscTestnet, blastSepolia } from 'wagmi/chains'
-import { Chain, getDefaultConfig } from '@rainbow-me/rainbowkit'
+import {http, createStorage, cookieStorage} from 'wagmi'
+import {sepolia, bscTestnet, blastSepolia} from 'wagmi/chains'
+import {Chain, getDefaultConfig} from '@rainbow-me/rainbowkit'
 
-const projectId : any = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID;
-
+const projectId: string | undefined = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID;
+if (!projectId) {
+    throw new Error("NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID is not defined");
+}
 const supportedChains: Chain[] = [sepolia, bscTestnet, blastSepolia];
 
 export const config = getDefaultConfig({
     appName: 'WalletConnection',
     projectId,
-    chains: supportedChains as any,
+    chains: supportedChains as never,
     ssr: true,
     storage: createStorage({
         storage: cookieStorage,
     }),
-    transports: supportedChains.reduce((obj, chain) => ({ ...obj, [chain.id]: http() }), {})
+    transports: supportedChains.reduce((obj, chain) => ({...obj, [chain.id]: http()}), {})
 });
