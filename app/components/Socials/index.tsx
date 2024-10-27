@@ -7,7 +7,7 @@ export const Socials = () => {
     <Link href="https://t.me/solanaspin" target="_blank" rel="noopener noreferrer">
       <PiTelegramLogoLight className="text-white text-xl lg:text-3xl"/>
     </Link>
-   <Link href="" target="_blank" rel="noopener noreferrer">
+   <Link href="https://x.com/spinonsol_?s=21&t=8P8xTY1QR-HaV4j_pRZqrw" target="_blank" rel="noopener noreferrer">
      <FaXTwitter className="text-white text-xl lg:text-3xl"/>
    </Link>
   </div>)
