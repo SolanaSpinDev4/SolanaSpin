@@ -2,7 +2,7 @@ import type {Metadata} from "next";
 import "./globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import {NextUIProvider} from '@nextui-org/react';
-// import Providers from "./providers";
+
 // import Header from './components/Header';
 
 
@@ -25,14 +25,14 @@ export default function RootLayout({
     <body
       className="antialiased"
     >
-    {/*<Providers cookie={cookie}>*/}
+
       <NextUIProvider>
         <div className="min-h-screen ">
           {/*<Header/>*/}
           <main>{children}</main>
         </div>
       </NextUIProvider>
-    {/*</Providers>*/}
+
     </body>
     </html>
   );
