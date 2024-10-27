@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Header.module.css'; // Import the styles
-import {ConnectBtn} from './connectButton'; // Import your ConnectBtn component
+// import {ConnectBtn} from './connectButton'; // Import your ConnectBtn component
 
 const Header: React.FC = () => {
     return (
@@ -14,9 +14,9 @@ const Header: React.FC = () => {
             {/*    <button className={styles.button}>Roadmap</button>*/}
             {/*    <button className={styles.button}>Raffle</button>*/}
             {/*</div>*/}
-            <div className={`z-10 ${styles.connectBtnContainer}`}>
-                <ConnectBtn/>
-            </div>
+            {/*<div className={`z-10 ${styles.connectBtnContainer}`}>*/}
+            {/*    <ConnectBtn/>*/}
+            {/*</div>*/}
         </header>
     );
 };

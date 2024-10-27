@@ -74,7 +74,7 @@ export const ConnectBtn = () => {
                     {emoji}
                 </div>
                 <p className="balance-text">
-                    {/*{isBalanceLoading ? 'Loading...' : `${roundedBalance} ${balanceData?.symbol}`}*/}
+                    {isBalanceLoading ? 'Loading...' : `${roundedBalance} ${balanceData?.symbol}`}
                     $10,000.00$
                 </p>
             </div>
