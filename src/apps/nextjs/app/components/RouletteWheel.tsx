@@ -25,7 +25,6 @@ const RouletteWheel: React.FC<RouletteWheelProps> = ({color}) => {
 
   const handleSpin = () => {
     const randomRotations = Math.floor(Math.random() * 200) + 500;
-    console.log('has been rotated = ', randomRotations);
     // setRotation(randomRotations);
     setRotation(360);
   };
