@@ -6,8 +6,27 @@ import Image from "next/image";
 import {LogoTitle} from "@/app/components/LogoTitle";
 
 export const MobileMessageWheelWrapper = () => {
-    const [isPortrait, setIsPortrait] = useState(window.matchMedia("(orientation: portrait)").matches);
-    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768); // Adjust the width as needed for mobile detection
+    const [isPortrait, setIsPortrait] = useState(false);
+    const [isMobile, setIsMobile] = useState(false); // Adjust the width as needed for mobile detection
+
+    useEffect(() => {
+        const updateMedia = () => {
+            setIsPortrait(window.matchMedia("(orientation: portrait)").matches);
+            setIsMobile(window.innerWidth <= 768);
+        };
+
+        // Initial check
+        updateMedia();
+
+        // Add event listeners
+        window.addEventListener('resize', updateMedia);
+
+        // Clean up event listener on component unmount
+        return () => {
+            window.removeEventListener('resize', updateMedia);
+        };
+    }, []);
+
 
     useEffect(() => {
         if (typeof window !== "undefined") {
