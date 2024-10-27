@@ -17,12 +17,12 @@ import {Socials} from "@/app/components/Socials";
 
 const WheelContainer: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const videoRefs = useRef([]); // Array of references for video elements
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]); // Array of references for video elements
   const [videoId, setVideoId] = useState(1);
   const [balance, setBalance] = useState(10000);
   const [ticket, setTicket] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
-  const [videoBlobs, setVideoBlobs] = useState([]); // Store preloaded video blob URLs
+  const [videoBlobs, setVideoBlobs] = useState<string[]>([]); // Store preloaded video blob URLs
   const [firstSpin, setFirstSpin] = useState(true);
   const [activeBet, setActiveBet] = useState(0);
   const [recentPlays, setRecentPlays] = useState<Play[]>([]);
@@ -47,7 +47,7 @@ const WheelContainer: React.FC = () => {
   useEffect((): void => {
     if (isPlaying && videoRefs.current[videoId - 1]) {
       // Play the new video
-      videoRefs.current[videoId - 1].play();
+      videoRefs.current[videoId - 1]?.play();
     }
   }, [videoId, isPlaying]);
 
@@ -70,8 +70,10 @@ const WheelContainer: React.FC = () => {
     setIsPlaying(false);
 
     if (videoRefs.current[videoId - 1]) {
-      videoRefs.current[videoId - 1].pause();
-      videoRefs.current[videoId - 1].currentTime = 0;
+      videoRefs.current[videoId - 1]?.pause();
+        if (videoRefs.current[videoId - 1]) {
+            videoRefs.current[videoId - 1]!.currentTime = 0;
+        }
     }
 
     if (videoId > wheelPositions && videoId < wheelPositions * 2 + 1) {
@@ -119,7 +121,9 @@ const WheelContainer: React.FC = () => {
         videoBlobs.map((videoBlob, index) => (
           <video
             key={index}
-            ref={(el) => (videoRefs.current[index] = el)}
+            ref={(el) => {
+                videoRefs.current[index] = el
+            }}
             onEnded={handleVideoEnd}
             loop={false}
             controls={false}
