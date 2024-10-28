@@ -46,7 +46,7 @@ export const formatCurrency = (number: number) => {
   }).format(number);
 };
 
-export const videoSources = [
+export const videoSourcesHighRes = [
   "/videos/start/S_W_Separate_Wood_Start_Gift_Box.mp4",
   "/videos/start/S_W_Separate_Wood_Start_No_Win_A.mp4",
   "/videos/start/S_W_Separate_Wood_Start_No_Win_B.mp4",
@@ -89,6 +89,50 @@ export const videoSources = [
   "/videos/result/S_W_Separate_Wood_Result_X2C.mp4",
   "/videos/result/S_W_Separate_Wood_Result_X5A.mp4",
   "/videos/result/S_W_Separate_Wood_Result_X5B.mp4"
+];
+export const videoSourcesLowRes = [
+    "/videos/start/S_W_Separate_Wood_Start_Gift_Box_640X360.mp4",
+    "/videos/start/S_W_Separate_Wood_Start_No_Win_A_640X360.mp4",
+    "/videos/start/S_W_Separate_Wood_Start_No_Win_B_640X360.mp4",
+    "/videos/start/S_W_Separate_Wood_Start_No_Win_C_640X360.mp4",
+    "/videos/start/S_W_Separate_Wood_Start_Ticket_640X360.mp4",
+    "/videos/start/S_W_Separate_Wood_Start_X1A_640X360.mp4",
+    "/videos/start/S_W_Separate_Wood_Start_X1B_640X360.mp4",
+    "/videos/start/S_W_Separate_Wood_Start_X1C_640X360.mp4",
+    "/videos/start/S_W_Separate_Wood_Start_X1D_640X360.mp4",
+    "/videos/start/S_W_Separate_Wood_Start_X2A_640X360.mp4",
+    "/videos/start/S_W_Separate_Wood_Start_X2B_640X360.mp4",
+    "/videos/start/S_W_Separate_Wood_Start_X2C_640X360.mp4",
+    "/videos/start/S_W_Separate_Wood_Start_X5A_640X360.mp4",
+    "/videos/start/S_W_Separate_Wood_Start_X5B_640X360.mp4",
+    "/videos/stop/S_W_Separate_Wood_Stop_Gift_Box_640X360.mp4",
+    "/videos/stop/S_W_Separate_Wood_Stop_No_Win_A_640X360.mp4",
+    "/videos/stop/S_W_Separate_Wood_Stop_No_Win_B_640X360.mp4",
+    "/videos/stop/S_W_Separate_Wood_Stop_No_Win_C_640X360.mp4",
+    "/videos/stop/S_W_Separate_Wood_Stop_Ticket_640X360.mp4",
+    "/videos/stop/S_W_Separate_Wood_Stop_X1A_640X360.mp4",
+    "/videos/stop/S_W_Separate_Wood_Stop_X1B_640X360.mp4",
+    "/videos/stop/S_W_Separate_Wood_Stop_X1C_640X360.mp4",
+    "/videos/stop/S_W_Separate_Wood_Stop_X1D_640X360.mp4",
+    "/videos/stop/S_W_Separate_Wood_Stop_X2A_640X360.mp4",
+    "/videos/stop/S_W_Separate_Wood_Stop_X2B_640X360.mp4",
+    "/videos/stop/S_W_Separate_Wood_Stop_X2C_640X360.mp4",
+    "/videos/stop/S_W_Separate_Wood_Stop_X5A_640X360.mp4",
+    "/videos/stop/S_W_Separate_Wood_Stop_X5B_640X360.mp4",
+    "/videos/result/S_W_Separate_Wood_Result_Gift_Box_640X360.mp4",
+    "/videos/result/S_W_Separate_Wood_Result_No_Win_A_640X360.mp4",
+    "/videos/result/S_W_Separate_Wood_Result_No_Win_B_640X360.mp4",
+    "/videos/result/S_W_Separate_Wood_Result_No_Win_C_640X360.mp4",
+    "/videos/result/S_W_Separate_Wood_Result_Ticket_640X360.mp4",
+    "/videos/result/S_W_Separate_Wood_Result_X1A_640X360.mp4",
+    "/videos/result/S_W_Separate_Wood_Result_X1B_640X360.mp4",
+    "/videos/result/S_W_Separate_Wood_Result_X1C_640X360.mp4",
+    "/videos/result/S_W_Separate_Wood_Result_X1D_640X360.mp4",
+    "/videos/result/S_W_Separate_Wood_Result_X2A_640X360.mp4",
+    "/videos/result/S_W_Separate_Wood_Result_X2B_640X360.mp4",
+    "/videos/result/S_W_Separate_Wood_Result_X2C_640X360.mp4",
+    "/videos/result/S_W_Separate_Wood_Result_X5A_640X360.mp4",
+    "/videos/result/S_W_Separate_Wood_Result_X5B_640X360.mp4"
 ];
 export const wheelPositions = 14;
 export const predefinedBets = [5, 25, 50, 100];
