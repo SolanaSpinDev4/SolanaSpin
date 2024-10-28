@@ -28,24 +28,6 @@ const WheelContainer: React.FC = () => {
     const [activeBet, setActiveBet] = useState(0);
     const [recentPlays, setRecentPlays] = useState<Play[]>([]);
 
-    // // Preload videos into blob URLs
-    // useEffect((): void => {
-    //     const fetchVideos = async () => {
-    //         setIsLoading(true);
-    //         const blobs = await Promise.all(
-    //             videoSourcesLowRes.map(async (src) => {
-    //                 const response = await fetch(src);
-    //                 const blob = await response.blob();
-    //                 return URL.createObjectURL(blob);
-    //             })
-    //         );
-    //         setVideoBlobs(blobs);
-    //         setIsLoading(false);
-    //     };
-    //
-    //     fetchVideos().then(r => r);
-    // }, []);
-
     useEffect(() => {
         const loadLowResolutionVideos = async () => {
             // Load and display low-res videos initially
@@ -62,7 +44,7 @@ const WheelContainer: React.FC = () => {
         };
 
         const replaceWithHighResolutionVideos = async () => {
-            const BATCH_SIZE = 3; // Customize batch size to control network load
+            const BATCH_SIZE = 3;
 
             for (let i = 0; i < videoSourcesHighRes.length; i += BATCH_SIZE) {
                 const batch = videoSourcesHighRes.slice(i, i + BATCH_SIZE);
@@ -88,7 +70,6 @@ const WheelContainer: React.FC = () => {
                     return updatedBlobs;
                 });
 
-                // Optional delay between batches to avoid network congestion
                 await new Promise((resolve) => setTimeout(resolve, 500));
             }
         };
@@ -194,7 +175,7 @@ const WheelContainer: React.FC = () => {
                         className={`md:absolute w-full h-full object-cover ${
                             videoId === index + 1 ? "block" : "hidden"
                         }`}
-                        src={videoBlob} // Use preloaded blob URL as video source
+                        src={videoBlob}
                     />
                 ))
             )}
