@@ -10,10 +10,10 @@ interface RecentPlaysProps {
 
 const RecentPlays: React.FC<RecentPlaysProps> = ({plays, ticket}) => {
     return (
-        <div className="flex flex-col items-center justify-center z-20">
+        <div className="flex flex-col items-center justify-center z-20 pr-3 lg:pr-0">
             <div className="flex items-center justify-between min-w-[250px] lg:min-w-[450px] mb-5 text-sm lg:text-xl">
-                <div className={`${NauSea.className}`}>Recent Plays</div>
-                <div className={`${NauSea.className}`}><span className="text-xl">🎟️</span> Tickets {ticket}
+                <div className={`${NauSea.className} text-white text-sm lg:text-lg`}>Recent Plays</div>
+                <div className={`${NauSea.className} text-white text-sm lg:text-lg`}><span className="text-sm lg:text-xl">🎟️</span> Tickets {ticket}
                 </div>
             </div>
             {plays.length > 0 && (
