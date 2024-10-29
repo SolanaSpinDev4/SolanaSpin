@@ -44,7 +44,7 @@ const WheelContainer: React.FC = () => {
         };
 
         const replaceWithHighResolutionVideos = async () => {
-            const BATCH_SIZE = 3;
+            const BATCH_SIZE = 2;
 
             for (let i = 0; i < videoSourcesHighRes.length; i += BATCH_SIZE) {
                 const batch = videoSourcesHighRes.slice(i, i + BATCH_SIZE);
@@ -82,6 +82,7 @@ const WheelContainer: React.FC = () => {
             } else {
                 await replaceWithHighResolutionVideos();
             }
+
         };
 
         startLoading().then(r => r);
@@ -93,6 +94,18 @@ const WheelContainer: React.FC = () => {
             videoRefs.current[videoId - 1]?.play();
         }
     }, [videoId, isPlaying]);
+
+    useEffect(() => {
+        videoRefs.current.forEach((video, idx) => {
+            if (video) {
+                if (idx === videoId - 1) {
+                    video.play().then(r => r);
+                } else {
+                    video.pause();
+                }
+            }
+        });
+    }, [videoId]);
 
     const handlePlayVideo = (): void => {
         if (firstSpin) {
@@ -173,7 +186,7 @@ const WheelContainer: React.FC = () => {
                         controls={false}
                         muted={false}
                         playsInline
-                        className={`absolute w-full h-full object-cover top-0 left-0 right-0 bottom-0 ${
+                        className={`absolute w-screen h-screen sm:w-full sm:h-full object-cover top-0 left-0 right-0 bottom-0 ${
                             videoId === index + 1 ? "block" : "hidden"
                         }`}
                         src={videoBlob}
