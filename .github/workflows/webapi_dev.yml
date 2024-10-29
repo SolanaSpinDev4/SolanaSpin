@@ -54,3 +54,21 @@ jobs:
         run: |
           dotnet publish -c Release -p:ContainerRepository=ghcr.io/solanaspindev/webapi -p:ContainerImageTags=latest -p:RuntimeIdentifier=linux-x64
           docker push ghcr.io/solanaspindev/webapi --all-tags
+          
+  recreate:
+    needs: publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: find container and recreate it
+        env:
+          PORTAINER_API_TOKEN: ${{ secrets.PORTAINER_API_TOKEN }}
+          PORTAINER_API_URL: ${{ vars.PORTAINER_API_URL }}
+        run: |
+          response=$(curl -s -H "X-API-Key: $PORTAINER_API_TOKEN" "$PORTAINER_API_URL/endpoints/2/docker/containers/json")
+          id=$(echo $response | jq -r '.[] | select(.Image == "ghcr.io/solanaspindev/webapi:latest") | .Id')
+          echo "recreating container with id $id"
+          curl -X POST -s \
+          -H "X-API-Key: $PORTAINER_API_TOKEN" \
+          -H "Content-Type: application/json" \
+          -d '{"PullImage":true}' \
+          "$PORTAINER_API_URL/docker/2/containers/$id/recreate"
