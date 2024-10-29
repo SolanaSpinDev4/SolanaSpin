@@ -6,7 +6,7 @@ import React from "react";
 export const LogoTitle = () => {
   return (
     <div className="absolute top-0 left-0 right-0 lg:right-auto flex flex-col lg:flex-row items-center justify-center">
-      <div className="w-20 sm:w-32 md:w-40 lg:w-48 xl:w-56">
+      <div className="w-20 sm:w-32 md:w-40 lg:w-48 xl:w-56 flex items-center justify-center">
         <Image
           src="/images/logo.svg"
           alt="Responsive Logo"
