@@ -186,6 +186,8 @@ const WheelContainer: React.FC = () => {
                         controls={false}
                         muted={false}
                         playsInline
+                        preload="auto"
+                        poster="/images/frame-0.png"
                         className={`absolute w-screen h-screen sm:w-full sm:h-full object-cover top-0 left-0 right-0 bottom-0 ${
                             videoId === index + 1 ? "block" : "hidden"
                         }`}
