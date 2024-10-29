@@ -154,7 +154,8 @@ const WheelContainer: React.FC = () => {
     }
 
     return (
-        <div className="md:absolute top-0 left-0 w-full md:h-full overflow-hidden -z-1 video-container">
+        <div
+            className="absolute top-0 left-0 bottom-0 right-0 bg-black w-full h-full overflow-hidden -z-1 video-container">
             {isLoading ? (
                 <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2">
                     <Loading/>
@@ -172,7 +173,7 @@ const WheelContainer: React.FC = () => {
                         controls={false}
                         muted={false}
                         playsInline
-                        className={`md:absolute w-full h-full object-cover ${
+                        className={`absolute w-full h-full object-cover top-0 left-0 right-0 bottom-0 ${
                             videoId === index + 1 ? "block" : "hidden"
                         }`}
                         src={videoBlob}
@@ -189,7 +190,7 @@ const WheelContainer: React.FC = () => {
                     <LogoTitle/>
                     <Jackpot/>
                 </div>
-                <div className="flex flex-col items-center justify-end z-20">
+                <div className="flex flex-col items-center justify-end z-20 pb-7 lg:pb-0">
                     <div className="flex flex-col pb-1 lg:pb-5">
                         <div className="flex items-center">
                             <div className="flex flex-row justify-center items-center">
@@ -204,12 +205,14 @@ const WheelContainer: React.FC = () => {
                                         onClick={() => selectBet(bet)}>${bet}</div>
                                 ))}
                                 <div
-                                    className="font-bold text-lg lg:text-2xl text-yellow-300 ml-3 border-1 border-solid border-yellow-500 p-1.5 lg:p-2 rounded"> {formatCurrency(balance)}</div>
+                                    className="font-bold text-lg lg:text-2xl text-yellow-300 ml-3 border-1 border-solid border-yellow-500 p-1.5 lg:p-2 rounded">
+                                    {formatCurrency(balance)}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="relative flex flex-col items-center justify-center z-20">
+                <div className="relative flex flex-col items-center justify-center z-20 pr-2">
                     <div className="absolute top-[40px] lg:top-[80px] right-[40px] lg:right-[80px]">
                         <Socials/>
                     </div>
