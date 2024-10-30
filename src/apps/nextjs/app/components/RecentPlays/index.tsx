@@ -23,7 +23,10 @@ const RecentPlays: React.FC<RecentPlaysProps> = ({plays, ticket}) => {
                             className="p-1 lg:p-4 bg-black bg-opacity-25 text-white flex justify-between min-w-[250px] lg:min-w-[450px] border-b-1 border-solid border-zinc-500 last:border-b-0"
                             key={i}>
                             <div className="flex items-center justify-center text-xs lg:text-base">
-                                <div><span className="capitalize">{play.name}</span> <span className="hidden lg:inline">spun a</span></div>
+                                <div>
+                                    <span className="capitalize">{play.name}</span>
+                                    <span className="hidden lg:inline">spun a</span>
+                                </div>
                                 <div className={clsx("capitalize px-1 ", {
                                     "text-pink-500": play.outcome === "X1",
                                     "text-green-500": play.outcome === "X2",
