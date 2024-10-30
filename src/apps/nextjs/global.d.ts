@@ -4,3 +4,6 @@ interface Play {
   outcome: string;
   prize: number;
 }
+interface Navigator {
+    standalone: boolean;
+}
