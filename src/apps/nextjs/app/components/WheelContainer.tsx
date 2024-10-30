@@ -27,7 +27,16 @@ const WheelContainer: React.FC = () => {
     const [firstSpin, setFirstSpin] = useState(true);
     const [activeBet, setActiveBet] = useState(0);
     const [recentPlays, setRecentPlays] = useState<Play[]>([]);
+    const [isSafariMobile, setIsSafariMobile] = useState(false);
 
+    useEffect(() => {
+        // Check if the user is using Safari on a mobile device
+        const ua = navigator.userAgent;
+        const isSafariBrowser = ua.includes("Safari") && !ua.includes("Chrome");
+        const isMobileDevice = /iPhone|iPad|iPod/.test(ua);
+
+        setIsSafariMobile(isSafariBrowser && isMobileDevice);
+    }, []);
     useEffect(() => {
         const loadLowResolutionVideos = async () => {
             // Load and display low-res videos initially
@@ -200,19 +209,19 @@ const WheelContainer: React.FC = () => {
                     <div role="button" className="w-[140px] h-[140px] rounded-full" onClick={handlePlayVideo}></div>
                 </div>
             )}
-            <div className="grid grid-cols-3 gap-4 h-screen z-20">
+            <div className="grid grid-cols-3 gap-4 min-h-screen z-20">
                 <div className="relative flex flex-col items-center justify-center z-20">
                     <LogoTitle/>
                     <Jackpot/>
                 </div>
-                <div className="flex flex-col items-center justify-end z-20 pb-7 lg:pb-0">
-                    <div className="flex flex-col pb-1 lg:pb-5">
+                <div className="min-h-screen relative flex flex-col items-start justify-end z-20 text-white">
+                    <div className=" flex lg:pb-5" style={isSafariMobile ? {paddingBottom: 90} : {}}>
                         <div className="flex items-center">
                             <div className="flex flex-row justify-center items-center">
                                 {predefinedBets.map((bet: number, i: number) => (
                                     <div
                                         className={clsx(
-                                            "p-2 m-2 text-base lg:text-xl rounded-xl w-11 lg:w-16 h-11 lg:h-16 font-bold flex items-center justify-center bg-[url('/images/woody-button2.webp')] bg-cover bg-no-repeat",
+                                            "p-2 m-2 text-sm lg:text-xl rounded-xl w-18 lg:w-16 h-8 lg:h-16 font-bold flex items-center justify-center bg-[url('/images/woody-button2.webp')] bg-cover bg-no-repeat bg-center",
                                             isPlaying ? "" : "animate-glow cursor-pointer",
                                             activeBet === bet ? "text-white/100 border-white border-1 border-solid" : "text-white/50"
                                         )}
@@ -220,7 +229,7 @@ const WheelContainer: React.FC = () => {
                                         onClick={() => selectBet(bet)}>${bet}</div>
                                 ))}
                                 <div
-                                    className="font-bold text-lg lg:text-2xl text-yellow-300 ml-3 border-1 border-solid border-yellow-500 p-1.5 lg:p-2 rounded">
+                                    className="font-bold text-sm lg:text-2xl text-yellow-300 ml-3 border-1 border-solid border-yellow-500 p-1.5 lg:p-2 rounded">
                                     {formatCurrency(balance)}
                                 </div>
                             </div>
