@@ -15,7 +15,6 @@ import clsx from "clsx";
 import RecentPlays from "@/app/components/RecentPlays";
 import {LogoTitle} from "@/app/components/LogoTitle";
 import {Socials} from "@/app/components/Socials";
-import {NauSea} from "@/app/fonts/fonts";
 
 const WheelContainer: React.FC = () => {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -97,7 +96,7 @@ const WheelContainer: React.FC = () => {
         };
 
         startLoading().then(r => r);
-    }, [videoSourcesLowRes, videoSourcesHighRes]);
+    }, []);
 
     useEffect((): void => {
         if (isPlaying && videoRefs.current[videoId - 1]) {
