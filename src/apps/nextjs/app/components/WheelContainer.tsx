@@ -21,7 +21,7 @@ const WheelContainer: React.FC = () => {
     const [isPlaying, setIsPlaying] = useState(false);
     const videoRefs = useRef<(HTMLVideoElement | null)[]>([]); // Array of references for video elements
     const [videoId, setVideoId] = useState(1);
-    const [balance, setBalance] = useState(10000);
+    const [balance, setBalance] = useState(1000);
     const [ticket, setTicket] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [videoBlobs, setVideoBlobs] = useState<string[]>(Array(videoSourcesLowRes.length).fill(null)); // Store preloaded video blob URLs
@@ -177,6 +177,10 @@ const WheelContainer: React.FC = () => {
         }
     }
 
+    const handleJackpot = (jackpot: number) => {
+        setBalance(prev=>prev+jackpot)
+    }
+
     return (
         <div
             className="absolute top-0 left-0 bottom-0 right-0 bg-black w-full h-full overflow-hidden -z-1 video-container">
@@ -214,13 +218,16 @@ const WheelContainer: React.FC = () => {
             <div className="grid grid-cols-3 gap-4 min-h-screen z-20">
                 <div className="relative flex flex-col items-center justify-center z-20">
                     <LogoTitle/>
-                    <Jackpot/>
+                    <Jackpot jackpotReached={handleJackpot}/>
                 </div>
                 <div className="min-h-screen relative flex flex-col items-center justify-between z-20 text-white"
                      style={isSafariMobile ? {paddingBottom: 75} : {}}>
                     <div
-                        className="font-bold text-sm lg:text-2xl text-yellow-300 border-1 border-solid border-yellow-500 p-1.5 lg:p-2 rounded">
-                        {formatCurrency(balance)}
+                        className="font-bold text-sm lg:text-2xl pt-1 lg:pt-5">
+                        <span
+                            className="p-3 bg-zinc-900 rounded-tl-[5px] rounded-bl-[5px]">{formatCurrency(balance)}</span>
+                        <span
+                            className="text-black bg-amber-400 px-3 py-3 rounded-tr-[5px] rounded-br-[5px]"> Balance </span>
                     </div>
                     <div
                         className="relative flex flex-row flex-wrap items-center justify-center w-full pb-4 lg:w-[400px]">
@@ -230,7 +237,7 @@ const WheelContainer: React.FC = () => {
                                     className={clsx(
                                         "tracking-[1px] relative m-2 text-xs lg:text-4xl w-10 lg:w-[166px] h-6 lg:h-[64px] font-bold flex items-center bg-[#ffdf56] text-black justify-center bg-cover bg-no-repeat bg-center z-20",
                                         isPlaying ? "" : "animate-glow cursor-pointer",
-                                        activeBet === bet ? "text-white/100 border-white border-1 border-solid" : "text-white/50"
+                                        activeBet === bet ? "border-white border-1 border-solid" : ""
                                     )}
                                     onClick={() => selectBet(bet)}>${bet}</div>
                                 <div

@@ -135,4 +135,5 @@ export const videoSourcesLowRes = [
     "https://solanaspin.io/videos/result/S_W_Separate_Wood_Result_X5B_640X360.mp4"
 ];
 export const wheelPositions = 14;
+export const jackpotLimit = 500;
 export const predefinedBets = [5, 25, 50, 100];
