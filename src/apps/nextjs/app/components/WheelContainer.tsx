@@ -15,6 +15,7 @@ import clsx from "clsx";
 import RecentPlays from "@/app/components/RecentPlays";
 import {LogoTitle} from "@/app/components/LogoTitle";
 import {Socials} from "@/app/components/Socials";
+import {NauSea} from "@/app/fonts/fonts";
 
 const WheelContainer: React.FC = () => {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -216,26 +217,31 @@ const WheelContainer: React.FC = () => {
                     <LogoTitle/>
                     <Jackpot/>
                 </div>
-                <div className="min-h-screen relative flex flex-col items-start justify-end z-20 text-white">
-                    <div className=" flex lg:pb-5" style={isSafariMobile ? {paddingBottom: 90} : {}}>
-                        <div className="flex items-center">
-                            <div className="flex flex-row justify-center items-center">
-                                {predefinedBets.map((bet: number, i: number) => (
-                                    <div
-                                        className={clsx(
-                                            "p-2 m-2 text-sm lg:text-xl rounded-xl w-18 lg:w-16 h-8 lg:h-16 font-bold flex items-center justify-center bg-[url('/images/woody-button2.webp')] bg-cover bg-no-repeat bg-center",
-                                            isPlaying ? "" : "animate-glow cursor-pointer",
-                                            activeBet === bet ? "text-white/100 border-white border-1 border-solid" : "text-white/50"
-                                        )}
-                                        key={i}
-                                        onClick={() => selectBet(bet)}>${bet}</div>
-                                ))}
+                <div className="min-h-screen relative flex flex-col items-center justify-between z-20 text-white"
+                     style={isSafariMobile ? {paddingBottom: 75} : {}}>
+                    <div
+                        className="font-bold text-sm lg:text-2xl text-yellow-300 border-1 border-solid border-yellow-500 p-1.5 lg:p-2 rounded">
+                        {formatCurrency(balance)}
+                    </div>
+                    <div className="relative flex flex-row flex-wrap items-center justify-center w-full pb-4 lg:w-[400px]">
+                        {predefinedBets.map((bet: number, i: number) => (
+                            <div className="relative lg:mr-4 lg:mb-4" key={i}>
                                 <div
-                                    className="font-bold text-sm lg:text-2xl text-yellow-300 ml-3 border-1 border-solid border-yellow-500 p-1.5 lg:p-2 rounded">
-                                    {formatCurrency(balance)}
-                                </div>
+                                    className={clsx(
+                                        "tracking-[1px] relative m-2 text-xs lg:text-4xl w-10 lg:w-[166px] h-6 lg:h-[64px] font-bold flex items-center bg-[#ffdf56] text-black justify-center bg-cover bg-no-repeat bg-center z-20",
+                                        isPlaying ? "" : "animate-glow cursor-pointer",
+                                        activeBet === bet ? "text-white/100 border-white border-1 border-solid" : "text-white/50"
+                                    )}
+                                    onClick={() => selectBet(bet)}>${bet}</div>
+                                <div
+                                    className="absolute z-10 bottom-[5px] lg:bottom-[2px] right-[5px] lg:right-[2px] bg-amber-500 w-10 lg:w-[166px] h-6 lg:h-[64px]"></div>
+                                <div
+                                    className={clsx(
+                                        "absolute z-1 bottom-[2px] lg:-bottom-[4px] right-[2px] lg:-right-[2px] w-12 lg:w-[180px] h-8 lg:h-[82px]",
+                                        activeBet === bet ? "bg-white" : "bg-transparent"
+                                    )}></div>
                             </div>
-                        </div>
+                        ))}
                     </div>
                 </div>
                 <div className="relative flex flex-col items-center justify-center z-20 pr-2">
