@@ -30,13 +30,15 @@ const WheelContainer: React.FC = () => {
     const [isSafariMobile, setIsSafariMobile] = useState(false);
 
     useEffect(() => {
-        // Check if the user is using Safari on a mobile device
         const ua = navigator.userAgent;
-        const isSafariBrowser = ua.includes("Safari") && !ua.includes("Chrome");
-        const isMobileDevice = /iPhone|iPad|iPod/.test(ua);
+        const isSafariBrowser = ua.includes("Safari") && !ua.includes("CriOS") && !ua.includes("FxiOS");
+        const isIOS = /iPhone|iPad|iPod/.test(ua);
+        const isStandalone = window.navigator.standalone === true;
 
-        setIsSafariMobile(isSafariBrowser && isMobileDevice);
+        
+        setIsSafariMobile(isIOS && isSafariBrowser && !isStandalone);
     }, []);
+
     useEffect(() => {
         const loadLowResolutionVideos = async () => {
             // Load and display low-res videos initially
