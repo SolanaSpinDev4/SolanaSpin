@@ -35,7 +35,7 @@ const WheelContainer: React.FC = () => {
         const isIOS = /iPhone|iPad|iPod/.test(ua);
         const isStandalone = window.navigator.standalone === true;
 
-        
+
         setIsSafariMobile(isIOS && isSafariBrowser && !isStandalone);
     }, []);
 
