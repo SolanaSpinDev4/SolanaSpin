@@ -94,7 +94,6 @@ const WheelContainer: React.FC = () => {
             } else {
                 await replaceWithHighResolutionVideos();
             }
-
         };
 
         startLoading().then(r => r);
@@ -223,7 +222,8 @@ const WheelContainer: React.FC = () => {
                         className="font-bold text-sm lg:text-2xl text-yellow-300 border-1 border-solid border-yellow-500 p-1.5 lg:p-2 rounded">
                         {formatCurrency(balance)}
                     </div>
-                    <div className="relative flex flex-row flex-wrap items-center justify-center w-full pb-4 lg:w-[400px]">
+                    <div
+                        className="relative flex flex-row flex-wrap items-center justify-center w-full pb-4 lg:w-[400px]">
                         {predefinedBets.map((bet: number, i: number) => (
                             <div className="relative lg:mr-4 lg:mb-4" key={i}>
                                 <div
