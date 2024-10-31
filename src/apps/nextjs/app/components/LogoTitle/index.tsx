@@ -19,7 +19,6 @@ export const LogoTitle = () => {
         <div className={`${NauSea.className} text-white text-base lg:text-4xl`}>
           <span>Solana spin</span> - <span>Demo</span>
         </div>
-        <Tooltip text="Lorem ipsum dolor sit amet, consectetur adipiscing elit."/>
       </div>
     </div>
   )

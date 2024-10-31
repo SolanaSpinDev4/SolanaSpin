@@ -39,8 +39,9 @@ export const Jackpot = ({jackpotReached}) => {
                    alt="Centered Image"
                    loading="lazy"
                    className="max-w-[130px] lg:max-w-[300px] h-auto"
-                   width={1024}
-                   height={1024}/>
+                   quality={75}
+                   width={300}
+                   height={300}/>
             <div
                 className="progress-container flex flex-col w-[130px] lg:w-[200px] h-[12px] lg:h-[18px] bg-gray-300 rounded relative overflow-hidden">
                 <div className="progress-bar" style={{width: `${progress}%`}}></div>

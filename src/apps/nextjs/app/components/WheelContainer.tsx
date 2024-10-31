@@ -28,7 +28,6 @@ const WheelContainer: React.FC = () => {
     const [activeBet, setActiveBet] = useState(0);
     const [recentPlays, setRecentPlays] = useState<Play[]>([]);
     const [isSafariMobile, setIsSafariMobile] = useState(false);
-
     useEffect(() => {
         const ua = navigator.userAgent;
         const isSafariBrowser = ua.includes("Safari") && !ua.includes("CriOS") && !ua.includes("FxiOS");
@@ -38,7 +37,6 @@ const WheelContainer: React.FC = () => {
 
         setIsSafariMobile(isIOS && isSafariBrowser && !isStandalone);
     }, []);
-
     useEffect(() => {
         const loadLowResolutionVideos = async () => {
             // Load and display low-res videos initially
@@ -177,7 +175,7 @@ const WheelContainer: React.FC = () => {
     }
 
     const handleJackpot = (jackpot: number) => {
-        setBalance(prev=>prev+jackpot)
+        setBalance(prev => prev + jackpot)
     }
 
     return (
@@ -200,7 +198,6 @@ const WheelContainer: React.FC = () => {
                         controls={false}
                         muted={false}
                         playsInline
-                        preload="auto"
                         poster="/images/frame-0.png"
                         className={`absolute w-screen h-screen sm:w-full sm:h-full object-cover top-0 left-0 right-0 bottom-0 ${
                             videoId === index + 1 ? "block" : "hidden"
