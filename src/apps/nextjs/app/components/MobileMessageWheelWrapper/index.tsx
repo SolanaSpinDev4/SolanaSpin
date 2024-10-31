@@ -1,7 +1,7 @@
 'use client';
 
 import React, {useState, useEffect} from 'react';
-import WheelContainer from "@/app/components/WheelContainer";
+import WheelContainer from "@/app/components/WheelContainer/WheelContainer";
 import Image from "next/image";
 import {LogoTitle} from "@/app/components/LogoTitle";
 import {Slide, toast, ToastContainer} from "react-toastify";
@@ -36,7 +36,7 @@ export const MobileMessageWheelWrapper = () => {
         toast.info('🎉 Welcome to Our Demo! 🎉\n' +
             'Stay tuned for updates, and have fun spinning! 🎡', {
             position: "top-right",
-            autoClose: 2000,
+            autoClose: 2500,
             hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
@@ -69,7 +69,7 @@ export const MobileMessageWheelWrapper = () => {
             <>
                 <ToastContainer
                     position="top-right"
-                    autoClose={2000}
+                    autoClose={2500}
                     hideProgressBar={false}
                     newestOnTop={false}
                     closeOnClick

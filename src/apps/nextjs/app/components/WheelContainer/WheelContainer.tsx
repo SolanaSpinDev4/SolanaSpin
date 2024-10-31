@@ -16,6 +16,8 @@ import RecentPlays from "@/app/components/RecentPlays";
 import {LogoTitle} from "@/app/components/LogoTitle";
 import {Socials} from "@/app/components/Socials";
 import PrizeAnnouncement from "@/app/components/PrizeAnnouncement";
+import {GoMute, GoUnmute} from "react-icons/go";
+import {NauSea} from "@/app/fonts/fonts";
 
 const WheelContainer: React.FC = () => {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -28,19 +30,31 @@ const WheelContainer: React.FC = () => {
     const [firstSpin, setFirstSpin] = useState(true);
     const [activeBet, setActiveBet] = useState(0);
     const [recentPlays, setRecentPlays] = useState<Play[]>([]);
-    const [isSafariMobile, setIsSafariMobile] = useState(false);
+    const [browser, setBrowser] = useState('');
     const [hasWonSpecialPrize, setHasWonSpecialPrize] = useState(false);
     const [specialPrize, setSpecialPrize] = useState(0);
+    const [isMuted, setIsMuted] = useState(true);
+
 
     useEffect(() => {
-        const ua = navigator.userAgent;
-        const isSafariBrowser = ua.includes("Safari") && !ua.includes("CriOS") && !ua.includes("FxiOS");
-        const isIOS = /iPhone|iPad|iPod/.test(ua);
-        const isStandalone = window.navigator.standalone === true;
+        const userAgent = navigator.userAgent;
 
-
-        setIsSafariMobile(isIOS && isSafariBrowser && !isStandalone);
+        const isMobile = /Mobi|Android|iPhone|iPad|iPod/.test(userAgent);
+        if (isMobile) {
+            if (userAgent.includes('Safari') && !userAgent.includes('CriOS') && !userAgent.includes('FxiOS') && !userAgent.includes('Chrome')) {
+                setBrowser('safari-mobile');
+            } else if (userAgent.includes('CriOS') || userAgent.includes('Chrome')) {
+                setBrowser('chrome-mobile');
+            } else if (userAgent.includes('FxiOS') || userAgent.includes('Firefox')) {
+                setBrowser('firefox-mobile');
+            } else {
+                setBrowser('default-mobile');
+            }
+        } else {
+            setBrowser('default');
+        }
     }, []);
+
     useEffect(() => {
         const loadLowResolutionVideos = async () => {
             // Load and display low-res videos initially
@@ -178,7 +192,7 @@ const WheelContainer: React.FC = () => {
         }
     }
 
-    const handleJackpot = (data: { jackpotValue: number, progress: number }) => {
+    const handleJackpot = (data: { jackpotValue: number, progress: number }): void => {
 
         setBalance(prev => prev + data.jackpotValue);
         setSpecialPrize(data.jackpotValue);
@@ -188,6 +202,14 @@ const WheelContainer: React.FC = () => {
         setHasWonSpecialPrize(false);
         setSpecialPrize(0);
     }
+    const toggleMute = (): void => {
+        const video = videoRefs.current[videoId - 1];
+        if (video) {
+            video.muted = !isMuted;
+            setIsMuted(!isMuted);
+        }
+    };
+
     return (
         <div
             className="absolute top-0 left-0 bottom-0 right-0 bg-black w-full h-full overflow-hidden -z-1 video-container">
@@ -206,7 +228,7 @@ const WheelContainer: React.FC = () => {
                         onEnded={handleVideoEnd}
                         loop={false}
                         controls={false}
-                        muted={false}
+                        muted={isMuted}
                         playsInline
                         poster="/images/frame-0.png"
                         className={`absolute w-screen h-screen sm:w-full sm:h-full object-cover top-0 left-0 right-0 bottom-0 ${
@@ -231,8 +253,17 @@ const WheelContainer: React.FC = () => {
                     <LogoTitle/>
                     <Jackpot jackpotReached={handleJackpot}/>
                 </div>
-                <div className="min-h-screen relative flex flex-col items-center justify-between z-20 text-white"
-                     style={isSafariMobile ? {paddingBottom: 75} : {}}>
+                <div
+                    className={clsx(
+                        {
+                            'pb-10': browser === 'default' || browser === 'chrome-mobile',
+                            'pb-12': browser === 'safari-mobile',
+                            'pb-3': browser === 'firefox-mobile',
+                        },
+                        "middle-container  h-screen min-h-screen relative flex flex-col items-center justify-between z-20 text-white"
+                    )}
+
+                    >
                     <div
                         className="font-bold text-sm lg:text-2xl pt-1 lg:pt-5">
                         <span
@@ -246,7 +277,8 @@ const WheelContainer: React.FC = () => {
                             <div className="relative lg:mr-4 lg:mb-4" key={i}>
                                 <div
                                     className={clsx(
-                                        "tracking-[1px] relative m-2 text-xs lg:text-4xl w-10 lg:w-[166px] h-6 lg:h-[64px] font-bold flex items-center bg-[#ffdf56] text-black justify-center bg-cover bg-no-repeat bg-center z-20",
+                                        `${NauSea.className}`,
+                                        "tracking-[1px] relative m-2 text-xs lg:text-4xl w-10 lg:w-[166px] h-6 lg:h-[64px] font-thin flex items-center bg-[#ffdf56] text-black justify-center bg-cover bg-no-repeat bg-center z-20",
                                         isPlaying ? "" : "animate-glow cursor-pointer",
                                         activeBet === bet ? "border-white border-1 border-solid" : ""
                                     )}
@@ -262,9 +294,18 @@ const WheelContainer: React.FC = () => {
                         ))}
                     </div>
                 </div>
+
                 <div className="relative flex flex-col items-center justify-center z-20 pr-2">
                     <div className="absolute top-[40px] lg:top-[80px] right-[40px] lg:right-[80px]">
-                        <Socials/>
+                        <div className="flex items center justify-center space-x-4">
+                            {isMuted &&
+                                <GoMute className="text-white text-xl lg:text-3xl" onClick={toggleMute}/>
+                            }
+                            {!isMuted &&
+                                <GoUnmute className="text-white text-xl lg:text-3xl" onClick={toggleMute}/>
+                            }
+                            <Socials/>
+                        </div>
                     </div>
                     <RecentPlays plays={recentPlays} ticket={ticket}/>
                 </div>
