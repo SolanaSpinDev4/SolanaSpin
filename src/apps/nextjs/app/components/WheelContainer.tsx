@@ -15,6 +15,7 @@ import clsx from "clsx";
 import RecentPlays from "@/app/components/RecentPlays";
 import {LogoTitle} from "@/app/components/LogoTitle";
 import {Socials} from "@/app/components/Socials";
+import PrizeAnnouncement from "@/app/components/PrizeAnnouncement";
 
 const WheelContainer: React.FC = () => {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -28,6 +29,9 @@ const WheelContainer: React.FC = () => {
     const [activeBet, setActiveBet] = useState(0);
     const [recentPlays, setRecentPlays] = useState<Play[]>([]);
     const [isSafariMobile, setIsSafariMobile] = useState(false);
+    const [hasWonSpecialPrize, setHasWonSpecialPrize] = useState(false);
+    const [specialPrize, setSpecialPrize] = useState(0);
+
     useEffect(() => {
         const ua = navigator.userAgent;
         const isSafariBrowser = ua.includes("Safari") && !ua.includes("CriOS") && !ua.includes("FxiOS");
@@ -99,7 +103,7 @@ const WheelContainer: React.FC = () => {
     useEffect((): void => {
         if (isPlaying && videoRefs.current[videoId - 1]) {
             // Play the new video
-            videoRefs.current[videoId - 1]?.play();
+            videoRefs.current[videoId - 1]?.play().then(r => r);
         }
     }, [videoId, isPlaying]);
 
@@ -174,10 +178,16 @@ const WheelContainer: React.FC = () => {
         }
     }
 
-    const handleJackpot = (jackpot: number) => {
-        setBalance(prev => prev + jackpot)
-    }
+    const handleJackpot = (data: { jackpotValue: number, progress: number }) => {
 
+        setBalance(prev => prev + data.jackpotValue);
+        setSpecialPrize(data.jackpotValue);
+        setHasWonSpecialPrize(true);
+    }
+    const handlePrizeAnimationEnd = () => {
+        setHasWonSpecialPrize(false);
+        setSpecialPrize(0);
+    }
     return (
         <div
             className="absolute top-0 left-0 bottom-0 right-0 bg-black w-full h-full overflow-hidden -z-1 video-container">
@@ -211,6 +221,11 @@ const WheelContainer: React.FC = () => {
                     <div role="button" className="w-[140px] h-[140px] rounded-full" onClick={handlePlayVideo}></div>
                 </div>
             )}
+            <PrizeAnnouncement hasWon={hasWonSpecialPrize}
+                               message={`Jackpot! You won $${specialPrize}!`}
+                               onAnimationComplete={handlePrizeAnimationEnd}
+            />
+
             <div className="grid grid-cols-3 gap-4 min-h-screen z-20">
                 <div className="relative flex flex-col items-center justify-center z-20">
                     <LogoTitle/>
