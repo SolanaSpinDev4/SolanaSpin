@@ -1,6 +1,5 @@
 import Image from "next/image";
 import {NauSea} from "@/app/fonts/fonts";
-import Tooltip from "@/app/components/Tooltip";
 import React from "react";
 
 export const LogoTitle = () => {
