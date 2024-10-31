@@ -27,7 +27,7 @@ export const Jackpot = ({jackpotReached}) => {
 
     useEffect(() => {
         if (progress === 100) {
-            jackpotReached(jackpotValue);
+            jackpotReached({ jackpotValue, progress });
             //todo fix the unfilled progress bar issue
             setProgress(0);
         }
