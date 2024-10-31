@@ -10,7 +10,6 @@ import 'react-toastify/dist/ReactToastify.css';
 export const MobileMessageWheelWrapper = () => {
     const [isPortrait, setIsPortrait] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
-    const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
         if (typeof window !== "undefined") {
@@ -34,30 +33,22 @@ export const MobileMessageWheelWrapper = () => {
         }
     }, []);
     useEffect(() => {
-        setIsClient(true);
-
-        if (isClient) {
-            const hasShownToast = localStorage.getItem('toastShown');
-
-            if (hasShownToast === 'false') {
-                toast.info('🎉 Welcome to Our Demo! 🎉\n' +
-                    'Stay tuned for updates, and have fun spinning! 🎡', {
-                    position: "top-right",
-                    autoClose: 2000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "dark",
-                    transition: Slide,
-                    onOpen: () => {
-                        localStorage.setItem('toastShown', 'true');
-                    },
-                });
-            }
-        }
-    }, [isClient]);
+        toast.info('🎉 Welcome to Our Demo! 🎉\n' +
+            'Stay tuned for updates, and have fun spinning! 🎡', {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Slide,
+            onOpen: () => {
+                localStorage.setItem('toastShown', 'true');
+            },
+        });
+    }, []);
 
 
     return (<div>
