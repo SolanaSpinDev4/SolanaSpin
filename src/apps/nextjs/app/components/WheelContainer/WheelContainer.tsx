@@ -30,20 +30,31 @@ const WheelContainer: React.FC = () => {
     const [firstSpin, setFirstSpin] = useState(true);
     const [activeBet, setActiveBet] = useState(0);
     const [recentPlays, setRecentPlays] = useState<Play[]>([]);
-    const [isSafariMobile, setIsSafariMobile] = useState(false);
+    const [browser, setBrowser] = useState('');
     const [hasWonSpecialPrize, setHasWonSpecialPrize] = useState(false);
     const [specialPrize, setSpecialPrize] = useState(0);
     const [isMuted, setIsMuted] = useState(true);
 
+
     useEffect(() => {
-        const ua = navigator.userAgent;
-        const isSafariBrowser = ua.includes("Safari") && !ua.includes("CriOS") && !ua.includes("FxiOS");
-        const isIOS = /iPhone|iPad|iPod/.test(ua);
-        const isStandalone = window.navigator.standalone === true;
+        const userAgent = navigator.userAgent;
 
-
-        setIsSafariMobile(isIOS && isSafariBrowser && !isStandalone);
+        const isMobile = /Mobi|Android|iPhone|iPad|iPod/.test(userAgent);
+        if (isMobile) {
+            if (userAgent.includes('Safari') && !userAgent.includes('CriOS') && !userAgent.includes('FxiOS') && !userAgent.includes('Chrome')) {
+                setBrowser('safari-mobile');
+            } else if (userAgent.includes('CriOS') || userAgent.includes('Chrome')) {
+                setBrowser('chrome-mobile');
+            } else if (userAgent.includes('FxiOS') || userAgent.includes('Firefox')) {
+                setBrowser('firefox-mobile');
+            } else {
+                setBrowser('default-mobile');
+            }
+        } else {
+            setBrowser('default');
+        }
     }, []);
+
     useEffect(() => {
         const loadLowResolutionVideos = async () => {
             // Load and display low-res videos initially
@@ -242,8 +253,17 @@ const WheelContainer: React.FC = () => {
                     <LogoTitle/>
                     <Jackpot jackpotReached={handleJackpot}/>
                 </div>
-                <div className="min-h-screen relative flex flex-col items-center justify-between z-20 text-white"
-                     style={isSafariMobile ? {paddingBottom: 75} : {}}>
+                <div
+                    className={clsx(
+                        {
+                            'pb-10': browser === 'default' || browser === 'chrome-mobile',
+                            'pb-12': browser === 'safari-mobile',
+                            'pb-3': browser === 'firefox-mobile',
+                        },
+                        "middle-container  h-screen min-h-screen relative flex flex-col items-center justify-between z-20 text-white"
+                    )}
+
+                    >
                     <div
                         className="font-bold text-sm lg:text-2xl pt-1 lg:pt-5">
                         <span
@@ -274,6 +294,7 @@ const WheelContainer: React.FC = () => {
                         ))}
                     </div>
                 </div>
+
                 <div className="relative flex flex-col items-center justify-center z-20 pr-2">
                     <div className="absolute top-[40px] lg:top-[80px] right-[40px] lg:right-[80px]">
                         <div className="flex items center justify-center space-x-4">

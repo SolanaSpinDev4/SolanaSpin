@@ -1,7 +1,7 @@
 'use client';
 
 import React, {useState, useEffect} from 'react';
-import WheelContainer from "@/app/components/WheelContainer";
+import WheelContainer from "@/app/components/WheelContainer/WheelContainer";
 import Image from "next/image";
 import {LogoTitle} from "@/app/components/LogoTitle";
 import {Slide, toast, ToastContainer} from "react-toastify";
