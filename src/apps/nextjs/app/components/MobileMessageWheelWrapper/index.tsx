@@ -4,10 +4,13 @@ import React, {useState, useEffect} from 'react';
 import WheelContainer from "@/app/components/WheelContainer";
 import Image from "next/image";
 import {LogoTitle} from "@/app/components/LogoTitle";
+import {Slide, toast, ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 export const MobileMessageWheelWrapper = () => {
     const [isPortrait, setIsPortrait] = useState(false);
-    const [isMobile, setIsMobile] = useState(false);  
+    const [isMobile, setIsMobile] = useState(false);
+    const [isClient, setIsClient] = useState(false);
 
     useEffect(() => {
         if (typeof window !== "undefined") {
@@ -16,7 +19,6 @@ export const MobileMessageWheelWrapper = () => {
                 setIsMobile(window.innerWidth <= 768);
             };
 
-            // Initial check
             updateMedia();
 
             // Set up event listeners
@@ -24,13 +26,37 @@ export const MobileMessageWheelWrapper = () => {
             mediaQuery.addEventListener("change", (e) => setIsPortrait(e.matches));
             window.addEventListener("resize", updateMedia);
 
-            // Clean up event listeners on component unmount
+
             return () => {
                 mediaQuery.removeEventListener("change", (e) => setIsPortrait(e.matches));
                 window.removeEventListener("resize", updateMedia);
             };
         }
     }, []);
+    useEffect(() => {
+        setIsClient(true);
+
+        if (isClient) {
+            const hasShownToast = localStorage.getItem('toastShown');
+
+            if (hasShownToast === 'false') {
+                toast.info('🎡 This is just a demo ', {
+                    position: "top-right",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                    transition: Slide,
+                    onOpen: () => {
+                        localStorage.setItem('toastShown', 'true');
+                    },
+                });
+            }
+        }
+    }, [isClient]);
 
 
     return (<div>
@@ -48,7 +74,21 @@ export const MobileMessageWheelWrapper = () => {
                 />
             </div>
         ) : (
-            <WheelContainer/>
+            <>
+                <ToastContainer
+                    position="top-right"
+                    autoClose={2000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="dark"
+                />
+                <WheelContainer/>
+            </>
         )}
     </div>)
 }
