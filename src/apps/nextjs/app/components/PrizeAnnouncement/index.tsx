@@ -32,8 +32,8 @@ const PrizeAnnouncement = ({hasWon, message, onAnimationComplete}) => {
     return (
         <>
             {isVisible && hasWon && <div className="absolute bg-black/75 w-full h-full block z-50">
-                <div className={`z-30 text-red-900 prize-display ${hasWon ? 'zoom-in' : ''}`}  onAnimationEnd={handleAnimationEnd}>
-                    {hasWon && <h1>{message}</h1>}
+                <div className={`z-30 text-red-900 prize-display`}  onAnimationEnd={handleAnimationEnd}>
+                    <h1>{message}</h1>
                 </div>
             </div>}
         </>
