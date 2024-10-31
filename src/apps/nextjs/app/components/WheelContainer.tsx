@@ -181,7 +181,7 @@ const WheelContainer: React.FC = () => {
         }
     }
 
-    const handleJackpot = (data: { jackpotValue: number, progress: number }) => {
+    const handleJackpot = (data: { jackpotValue: number, progress: number }): void => {
 
         setBalance(prev => prev + data.jackpotValue);
         setSpecialPrize(data.jackpotValue);
@@ -191,10 +191,11 @@ const WheelContainer: React.FC = () => {
         setHasWonSpecialPrize(false);
         setSpecialPrize(0);
     }
-    const toggleMute = () => {
-        if (videoRefs.current[videoId - 1]) {
-            videoRefs.current[videoId - 1].muted = !isMuted;
-            setIsMuted(!isMuted); // Toggle the state
+    const toggleMute = (): void => {
+        const video = videoRefs.current[videoId - 1];
+        if (video) {
+            video.muted = !isMuted;
+            setIsMuted(!isMuted);
         }
     };
 
