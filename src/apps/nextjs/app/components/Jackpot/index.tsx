@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import Image from "next/image";
-import {NauSea} from "@/app/fonts/fonts";
 import {getRandomNumber, jackpotLimit} from "@/lib/utils";
 import './Jackpot.css'
+import {NauSea} from "@/app/fonts/fonts";
 
 export const Jackpot = ({jackpotReached}) => {
     const [progress, setProgress] = useState(0);
@@ -28,7 +28,7 @@ export const Jackpot = ({jackpotReached}) => {
     useEffect(() => {
         if (progress === 100) {
             jackpotReached({ jackpotValue, progress });
-            //todo fix the unfilled progress bar issue
+
             setProgress(0);
         }
     }, [progress, jackpotValue, jackpotReached]);
@@ -43,11 +43,10 @@ export const Jackpot = ({jackpotReached}) => {
                    width={300}
                    height={300}/>
             <div
-                className="progress-container flex flex-col w-[130px] lg:w-[200px] h-[12px] lg:h-[18px] bg-gray-300 rounded relative overflow-hidden">
+                className="flex flex-col w-[130px] lg:w-[200px] h-[12px] lg:h-[18px] bg-gray-300 rounded relative overflow-hidden">
                 <div className="progress-bar" style={{width: `${progress}%`}}></div>
+                <div className={`${NauSea.className} absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black z-20 tracking-[1px] font-thin`}>${(progress / 100) * jackpotValue}</div>
             </div>
-            <div
-                className={`${NauSea.className} text-amber-400 text-lg lg:text-xl`}>${(progress / 100) * jackpotValue}</div>
         </div>
     )
 }

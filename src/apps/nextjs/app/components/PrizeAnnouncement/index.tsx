@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import confetti from 'canvas-confetti';
 import './PrizeAnnouncement.css'
+import {NauSea} from "@/app/fonts/fonts";
 
 const PrizeAnnouncement = ({hasWon, message, onAnimationComplete}) => {
     const [isVisible, setIsVisible] = useState(false);
@@ -9,7 +10,7 @@ const PrizeAnnouncement = ({hasWon, message, onAnimationComplete}) => {
         confetti({
             particleCount: 150,
             spread: 80,
-            origin: {y: 0.6}, // Starting position from the top
+            origin: {y: 0.6},
         });
     };
     useEffect(() => {
@@ -20,9 +21,9 @@ const PrizeAnnouncement = ({hasWon, message, onAnimationComplete}) => {
 
     useEffect(() => {
         if (hasWon) {
-            triggerConfetti(); // Trigger confetti when the user wins
+            triggerConfetti();
         }
-    }, [hasWon]); // Runs whenever `hasWon` changes
+    }, [hasWon]);
 
     const handleAnimationEnd = () => {
         setIsVisible(false);
@@ -33,7 +34,7 @@ const PrizeAnnouncement = ({hasWon, message, onAnimationComplete}) => {
         <>
             {isVisible && hasWon && <div className="absolute bg-black/75 w-full h-full block z-50">
                 <div className={`z-30 text-red-900 prize-display`}  onAnimationEnd={handleAnimationEnd}>
-                    <h1>{message}</h1>
+                    <h1 className={`${NauSea.className} tracking-[3px] font-thin`}>{message}</h1>
                 </div>
             </div>}
         </>
