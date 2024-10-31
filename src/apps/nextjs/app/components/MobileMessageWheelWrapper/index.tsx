@@ -40,7 +40,8 @@ export const MobileMessageWheelWrapper = () => {
             const hasShownToast = localStorage.getItem('toastShown');
 
             if (hasShownToast === 'false') {
-                toast.info('🎡 This is just a demo ', {
+                toast.info('🎉 Welcome to Our Demo! 🎉\n' +
+                    'Stay tuned for updates, and have fun spinning! 🎡', {
                     position: "top-right",
                     autoClose: 2000,
                     hideProgressBar: false,
