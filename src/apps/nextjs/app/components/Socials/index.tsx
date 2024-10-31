@@ -12,7 +12,7 @@ export const Socials = () => {
             <FaXTwitter className="text-white text-xl lg:text-3xl"/>
         </Link>
         {/*todo add the right link for the white paper*/}
-        <Link href="https://x.com/spinonsol_?s=21&t=8P8xTY1QR-HaV4j_pRZqrw" target="_blank" rel="noopener noreferrer" title="White paper">
+        <Link href="https://codyfight.gitbook.io/white-paper" target="_blank" rel="noopener noreferrer" title="White paper">
             <RiBook2Line className="text-white text-xl lg:text-3xl"/>
         </Link>
     </div>)
