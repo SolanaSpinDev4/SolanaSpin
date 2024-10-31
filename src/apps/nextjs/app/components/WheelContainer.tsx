@@ -16,6 +16,8 @@ import RecentPlays from "@/app/components/RecentPlays";
 import {LogoTitle} from "@/app/components/LogoTitle";
 import {Socials} from "@/app/components/Socials";
 import PrizeAnnouncement from "@/app/components/PrizeAnnouncement";
+import Link from "next/link";
+import {GoMute, GoUnmute} from "react-icons/go";
 
 const WheelContainer: React.FC = () => {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -31,6 +33,7 @@ const WheelContainer: React.FC = () => {
     const [isSafariMobile, setIsSafariMobile] = useState(false);
     const [hasWonSpecialPrize, setHasWonSpecialPrize] = useState(false);
     const [specialPrize, setSpecialPrize] = useState(0);
+    const [isMuted, setIsMuted] = useState(true);
 
     useEffect(() => {
         const ua = navigator.userAgent;
@@ -188,6 +191,13 @@ const WheelContainer: React.FC = () => {
         setHasWonSpecialPrize(false);
         setSpecialPrize(0);
     }
+    const toggleMute = () => {
+        if (videoRefs.current[videoId - 1]) {
+            videoRefs.current[videoId - 1].muted = !isMuted;
+            setIsMuted(!isMuted); // Toggle the state
+        }
+    };
+
     return (
         <div
             className="absolute top-0 left-0 bottom-0 right-0 bg-black w-full h-full overflow-hidden -z-1 video-container">
@@ -206,7 +216,7 @@ const WheelContainer: React.FC = () => {
                         onEnded={handleVideoEnd}
                         loop={false}
                         controls={false}
-                        muted={false}
+                        muted={isMuted}
                         playsInline
                         poster="/images/frame-0.png"
                         className={`absolute w-screen h-screen sm:w-full sm:h-full object-cover top-0 left-0 right-0 bottom-0 ${
@@ -264,7 +274,15 @@ const WheelContainer: React.FC = () => {
                 </div>
                 <div className="relative flex flex-col items-center justify-center z-20 pr-2">
                     <div className="absolute top-[40px] lg:top-[80px] right-[40px] lg:right-[80px]">
-                        <Socials/>
+                        <div className="flex items center justify-center space-x-4">
+                            {isMuted &&
+                                <GoMute className="text-white text-xl lg:text-3xl" onClick={toggleMute}/>
+                            }
+                            {!isMuted &&
+                                <GoUnmute className="text-white text-xl lg:text-3xl" onClick={toggleMute}/>
+                            }
+                            <Socials/>
+                        </div>
                     </div>
                     <RecentPlays plays={recentPlays} ticket={ticket}/>
                 </div>
