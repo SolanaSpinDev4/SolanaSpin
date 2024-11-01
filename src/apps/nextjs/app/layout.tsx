@@ -19,7 +19,7 @@ export const metadata: Metadata = {
         url: "https://game.solanaspin.io/",
         images: [
             {
-                url: "https://your-website-url.com/images/your-image.jpg",
+                url: "https://game.solanaspin.io/images/twitter-card.png",
                 width: 1200,
                 height: 630,
                 alt: "Description of the image",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: title,
         description: description,
-        images: ["https://your-website-url.com/images/your-image.jpg"],
+        images: ["https://game.solanaspin.io/images/twitter-card.png"],
     },
 };
 
