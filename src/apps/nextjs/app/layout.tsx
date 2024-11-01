@@ -3,7 +3,6 @@ import "./globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import {NextUIProvider} from '@nextui-org/react';
 
-
 // import Header from './components/Header';
 const title = "Solana Spin & Win: Crypto Betting Wheel for Big Rewards";
 const description =  "Experience the thrill of spinning and winning with our crypto betting app! Spin the wheel," +
@@ -19,7 +18,7 @@ export const metadata: Metadata = {
         url: "https://game.solanaspin.io/",
         images: [
             {
-                url: "https://game.solanaspin.io/images/twitter-card.png",
+                url: "https://solanaspin.io/wp-content/uploads/2024/11/twitter-card.png",
                 width: 1200,
                 height: 630,
                 alt: "Description of the image",
@@ -30,7 +29,7 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: title,
         description: description,
-        images: ["https://game.solanaspin.io/images/twitter-card.png"],
+        images: ["https://solanaspin.io/wp-content/uploads/2024/11/twitter-card.png"],
     },
 };
 
@@ -53,7 +52,19 @@ export default function RootLayout({
                 <main>{children}</main>
             </div>
         </NextUIProvider>
-
+        <script
+            type="text/javascript"
+            async
+            dangerouslySetInnerHTML={{
+                __html: `
+                            (function(c,l,a,r,i,t,y){
+                                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+                                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+                            })(window, document, "clarity", "script", "odqlb9qomc");
+                        `,
+            }}
+        ></script>
         </body>
         </html>
     );
