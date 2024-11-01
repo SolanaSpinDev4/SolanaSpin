@@ -5,13 +5,33 @@ import {NextUIProvider} from '@nextui-org/react';
 
 
 // import Header from './components/Header';
-
+const title = "Solana Spin & Win: Crypto Betting Wheel for Big Rewards";
+const description =  "Experience the thrill of spinning and winning with our crypto betting app! Spin the wheel," +
+        " place your bets, and enjoy a chance to win crypto rewards. Safe, secure, and full of excitement—join now " +
+        "and see where the wheel takes you!\"";
 
 export const metadata: Metadata = {
-    title: "Solana Spin & Win: Crypto Betting Wheel for Big Rewards",
-    description: "Experience the thrill of spinning and winning with our crypto betting app! Spin the wheel," +
-        " place your bets, and enjoy a chance to win crypto rewards. Safe, secure, and full of excitement—join now " +
-        "and see where the wheel takes you!\"",
+    title: title,
+    description:description,
+    openGraph: {
+        title: title,
+        description: description,
+        url: "https://game.solanaspin.io/",
+        images: [
+            {
+                url: "https://your-website-url.com/images/your-image.jpg",
+                width: 1200,
+                height: 630,
+                alt: "Description of the image",
+            },
+        ],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: title,
+        description: description,
+        images: ["https://your-website-url.com/images/your-image.jpg"],
+    },
 };
 
 // import {headers} from "next/headers";
