@@ -38,7 +38,7 @@ export const Jackpot = ({jackpotReached}) => {
             <Image src="/images/jackpot.png"
                    alt="Centered Image"
                    loading="lazy"
-                   className="max-w-[130px] lg:max-w-[300px] h-auto"
+                   className="max-w-[130px] lg:max-w-[200px] xl:max-w-[300px] h-auto"
                    quality={75}
                    width={300}
                    height={300}/>
