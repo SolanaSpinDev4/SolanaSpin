@@ -239,7 +239,7 @@ const WheelContainer: React.FC = () => {
                 ))
             )}
             {!isPlaying && !isLoading && activeBet > 0 && (
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30">
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[100]">
                     <div role="button" className="w-[140px] h-[140px] rounded-full" onClick={handlePlayVideo}></div>
                 </div>
             )}
@@ -257,10 +257,10 @@ const WheelContainer: React.FC = () => {
                     className={clsx(
                         {
                             'pb-10': browser === 'default' || browser === 'chrome-mobile',
-                            'pb-12': browser === 'safari-mobile',
+                            'pb-[70px]': browser === 'safari-mobile',
                             'pb-3': browser === 'firefox-mobile',
                         },
-                        "middle-container  h-screen min-h-screen relative flex flex-col items-center justify-between z-20 text-white"
+                        "middle-container h-screen min-h-screen relative flex flex-col items-center justify-between z-50 text-white"
                     )}
 
                     >
@@ -272,7 +272,7 @@ const WheelContainer: React.FC = () => {
                             className="text-black bg-amber-400 px-3 py-3 rounded-tr-[5px] rounded-br-[5px]"> Balance </span>
                     </div>
                     <div
-                        className="relative flex flex-row flex-wrap items-center justify-center w-full pb-4 lg:w-[400px]">
+                        className="relative flex flex-row  items-center justify-center w-full pb-4">
                         {predefinedBets.map((bet: number, i: number) => (
                             <div className="relative lg:mr-4 lg:mb-4" key={i}>
                                 <div
@@ -296,7 +296,7 @@ const WheelContainer: React.FC = () => {
                 </div>
 
                 <div className="relative flex flex-col items-center justify-center z-20 pr-2">
-                    <div className="absolute top-[40px] lg:top-[80px] right-[40px] lg:right-[80px]">
+                    <div className="absolute top-[40px] xl:top-[80px] right-[40px] xl:right-[80px]">
                         <div className="flex items center justify-center space-x-4">
                             {isMuted &&
                                 <GoMute className="text-white text-xl lg:text-3xl" onClick={toggleMute}/>
