@@ -3,7 +3,6 @@ import {useState, useRef, useEffect} from 'react';
 import {Loading} from "@/app/components/Loading";
 import {Jackpot} from "@/app/components/Jackpot";
 import {
-    formatCurrency,
     getRandomNumber,
     predefinedBets,
     computePrize,
