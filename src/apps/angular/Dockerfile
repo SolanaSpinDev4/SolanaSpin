@@ -1,14 +1,20 @@
-# Use the official .NET SDK 8.0 image as the build environment
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
+# Use an official Node.js runtime as a parent image
+FROM node:20-alpine AS build-env
 
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy all files from the current directory to the working directory in the container
-COPY . ./
+# Copy package.json and package-lock.json
+COPY package.json package-lock.json ./
 
-# Publish the .NET application in Release configuration to the output directory
-RUN dotnet publish ./client/Client.csproj -c Release -o output
+# Install dependencies
+RUN npm install
+
+# Copy the rest of your application's source code
+COPY . .
+
+# Build the application
+RUN npm run build
 
 # Use the official Nginx image as the runtime environment
 FROM nginx:alpine
@@ -17,10 +23,10 @@ FROM nginx:alpine
 WORKDIR /usr/share/nginx/html
 
 # Copy the published output from the build environment to the Nginx HTML directory
-COPY --from=build-env /app/output/wwwroot .
+COPY --from=build-env /app/dist/solana-spin/browser .
 
 # Copy the custom Nginx configuration file to the Nginx configuration directory
 COPY nginx.conf /etc/nginx/nginx.conf
 
 # Expose port 5100 to allow traffic to the Nginx server
-EXPOSE 5100
+EXPOSE 5200

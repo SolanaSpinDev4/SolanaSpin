@@ -1,5 +1,5 @@
 # Use an official Node.js runtime as a parent image
-FROM node:20-alpine AS build
+FROM node:20-alpine AS build-env
 
 # Set the working directory in the container
 WORKDIR /app
@@ -23,7 +23,10 @@ FROM node:20-alpine AS production
 WORKDIR /app
 
 # Copy the built application from the build stage
-COPY --from=build /app ./
+COPY --from=build-env /app ./
 
 # Start the application
 CMD ["npm", "start"]
+
+# Expose port 3000 to allow traffic to the Node.js server
+EXPOSE 5200

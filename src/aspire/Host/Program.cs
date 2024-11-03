@@ -13,9 +13,9 @@ var webapi = builder.AddProject<Projects.Server>("webapi");
 
 _ = builder.AddProject<Projects.Client>("blazor");
 
-_ = builder.AddNpmApp("nextjs", "../../apps/nextjs", scriptName: "dev")
+_ = builder.AddNpmApp("angular", "../../apps/angular", scriptName: "start", args: ["--port", "5200"])
            .WithReference(webapi)
-           .WithHttpEndpoint(env: "PORT", port: 5200)
+           .WithHttpEndpoint(port: 5200, isProxied: false)
            .WithExternalHttpEndpoints()
            .PublishAsDockerFile();
 
