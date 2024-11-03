@@ -18,6 +18,7 @@ import {Socials} from "@/app/components/Socials";
 import PrizeAnnouncement from "@/app/components/PrizeAnnouncement";
 import {GoMute, GoUnmute} from "react-icons/go";
 import {NauSea} from "@/app/fonts/fonts";
+import {Balance} from "@/app/components/Balance";
 
 const WheelContainer: React.FC = () => {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -263,14 +264,8 @@ const WheelContainer: React.FC = () => {
                         "middle-container h-screen min-h-screen relative flex flex-col items-center justify-between z-50 text-white"
                     )}
 
-                    >
-                    <div
-                        className="font-bold text-sm lg:text-2xl pt-1 lg:pt-5">
-                        <span
-                            className="p-3 bg-zinc-900 rounded-tl-[5px] rounded-bl-[5px]">{formatCurrency(balance)}</span>
-                        <span
-                            className="text-black bg-amber-400 px-3 py-3 rounded-tr-[5px] rounded-br-[5px]"> Balance </span>
-                    </div>
+                >
+                    <Balance balance={balance}/>
                     <div
                         className="relative flex flex-row  items-center justify-center w-full pb-4">
                         {predefinedBets.map((bet: number, i: number) => (
